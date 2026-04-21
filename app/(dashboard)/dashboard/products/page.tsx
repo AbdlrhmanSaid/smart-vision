@@ -191,12 +191,12 @@ export default function ProductsPage() {
               className="group bg-white dark:bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col"
             >
               {/* Product Image */}
-              <div className="relative h-44 bg-linear-to-br from-primary/5 to-accent flex items-center justify-center overflow-hidden">
+              <div className="relative h-48 bg-muted/40 flex items-center justify-center overflow-hidden rounded-t-2xl">
                 {product.image ? (
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
                   <div className="flex flex-col items-center gap-2">
@@ -204,9 +204,9 @@ export default function ProductsPage() {
                     <span className="text-xs text-muted-foreground">لا توجد صورة</span>
                   </div>
                 )}
-                {/* Price badge overlay */}
+                {/* Price badge */}
                 <div className="absolute top-3 left-3">
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-primary text-primary-foreground shadow-lg shadow-primary/30">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-primary text-primary-foreground shadow-lg shadow-primary/30">
                     ${product.price}
                   </span>
                 </div>

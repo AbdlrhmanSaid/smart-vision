@@ -3,17 +3,19 @@ import { getCookie } from "cookies-next";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = getCookie("token");
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    // Let Axios handle Content-Type automatically for FormData (multipart/form-data + boundary)
+    // Only set JSON manually when the body is NOT FormData
+    if (!(config.data instanceof FormData)) {
+      config.headers["Content-Type"] = "application/json";
     }
 
     return config;
