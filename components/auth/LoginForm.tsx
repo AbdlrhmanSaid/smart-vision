@@ -6,6 +6,9 @@ import { setCookie } from "cookies-next";
 import { toast } from "react-hot-toast";
 import { Eye, EyeOff, Loader2, Zap } from "lucide-react";
 import axiosInstance from "@/server/axios";
+import { useAuthStore } from "@/store/useAuthStore";
+import Image from "next/image";
+import logo from "@/public/logo.png";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -27,13 +30,17 @@ export default function LoginForm() {
       setLoading(true);
       const response = await axiosInstance.post("/auth/login", formData);
       const token = response.data?.token || response.data?.data?.token;
-      if (token) {
+      const user = response.data?.user || response.data?.data?.user;
+
+      if (token && user) {
         setCookie("token", token, { maxAge: 30 * 24 * 60 * 60, path: "/" });
+        useAuthStore.getState().setAuth(user, token);
+
         toast.success("تم تسجيل الدخول بنجاح ");
         router.push("/dashboard");
         router.refresh();
       } else {
-        toast.error("لم يتم العثور على التوكن");
+        toast.error("لم يتم العثور على التوكن أو المستخدم");
       }
     } catch (error: any) {
       const msg =
@@ -49,8 +56,15 @@ export default function LoginForm() {
     <div className="w-full" dir="rtl">
       {/* Header */}
       <div className="mb-8 text-center">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary shadow-lg shadow-primary/30 mb-4">
-          <Zap className="size-7 text-white" />
+        <div className="inline-flex items-center justify-center rounded-2xl overflow-hidden">
+          <Image
+            src={logo}
+            alt="logo"
+            width={60}
+            height={60}
+            priority
+            className="object-contain"
+          />
         </div>
         <h1 className="text-3xl font-bold text-foreground tracking-tight mb-2">
           مرحباً بك

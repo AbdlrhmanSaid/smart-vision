@@ -9,6 +9,7 @@ const pageTitles: Record<string, string> = {
   "/dashboard": "لوحة التحكم",
   "/dashboard/products": "إدارة المنتجات",
   "/dashboard/users": "المستخدمين",
+  "/dashboard/roles": "الصلاحيات",
   "/dashboard/settings": "الإعدادات",
 };
 

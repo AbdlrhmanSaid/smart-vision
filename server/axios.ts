@@ -1,13 +1,24 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
+
+/** قراءة الـ cookie مباشرة من document.cookie (يشتغل دائماً على client side) */
+function getClientCookie(name: string): string | undefined {
+  if (typeof document === "undefined") return undefined;
+  const match = document.cookie.match(
+    new RegExp("(?:^|;\\s*)" + name + "=([^;]+)")
+  );
+  return match ? decodeURIComponent(match[1]) : undefined;
+}
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API,
+  // Use the local Next.js proxy (/api/*) to avoid CORS issues.
+  // next.config.ts rewrites /api/* → NEXT_PUBLIC_API/*
+  baseURL: "/api",
+  withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = getCookie("token");
+    const token = getClientCookie("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -25,14 +36,18 @@ axiosInstance.interceptors.request.use(
   },
 );
 
-// Response Interceptor: للتعامل مع انتهاء صلاحية التوكين (401)
+import { deleteCookie } from "cookies-next";
+
+// Response Interceptor: للتعامل مع انتهاء صلاحية التوكين (401 أو 403)
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      // هنا يمكنك توجيه المستخدم لصفحة Login أو مسح التوكين المنتهي
-      console.error("الجلسة انتهت، يرجى تسجيل الدخول مجدداً");
-      // window.location.href = '/login';
+    if (error.response?.status === 401 || error.response?.status === 403) {
+      console.error("الجلسة انتهت أو غير مصرح لك، يرجى تسجيل الدخول مجدداً");
+      if (typeof window !== "undefined") {
+        deleteCookie("token");
+        window.location.href = "/login";
+      }
     }
     return Promise.reject(error);
   },
