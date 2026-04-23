@@ -3,7 +3,17 @@
 import React, { useState } from "react";
 import { useProducts } from "@/hooks/useProducts";
 import { Button } from "@/components/ui/button";
-import { Plus, Edit, Trash2, Package, Search, TrendingUp, ShoppingBag, DollarSign } from "lucide-react";
+import {
+  Plus,
+  Edit,
+  Trash2,
+  Package,
+  Search,
+  TrendingUp,
+  ShoppingBag,
+  DollarSign,
+  RefreshCw,
+} from "lucide-react";
 import { Product } from "@/types/product";
 import { Modal } from "@/components/shared/Modal";
 
@@ -14,7 +24,12 @@ export default function ProductsPage() {
     useUpdateProduct,
     useDeleteProduct,
   } = useProducts();
-  const { data: products, isLoading } = useGetAllProducts();
+  const {
+    data: products,
+    isLoading,
+    refetch,
+    isRefetching,
+  } = useGetAllProducts();
 
   const createMutation = useCreateProduct();
   const updateMutation = useUpdateProduct();
@@ -33,13 +48,11 @@ export default function ProductsPage() {
   });
 
   const filteredProducts = products?.filter((p) =>
-    p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    p.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const totalValue = products?.reduce(
-    (sum, p) => sum + p.price * p.quantity,
-    0
-  ) ?? 0;
+  const totalValue =
+    products?.reduce((sum, p) => sum + p.price * p.quantity, 0) ?? 0;
 
   const totalQuantity = products?.reduce((sum, p) => sum + p.quantity, 0) ?? 0;
 
@@ -79,7 +92,7 @@ export default function ProductsPage() {
     if (editingProduct) {
       updateMutation.mutate(
         { id: editingProduct._id, data: pData },
-        { onSuccess: () => handleCloseModal() }
+        { onSuccess: () => handleCloseModal() },
       );
     } else {
       createMutation.mutate(pData, { onSuccess: () => handleCloseModal() });
@@ -107,7 +120,9 @@ export default function ProductsPage() {
             <Package className="size-5 text-primary" />
           </div>
         </div>
-        <p className="text-muted-foreground text-sm animate-pulse">جاري التحميل...</p>
+        <p className="text-muted-foreground text-sm animate-pulse">
+          جاري التحميل...
+        </p>
       </div>
     );
   }
@@ -121,19 +136,36 @@ export default function ProductsPage() {
             <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10">
               <Package className="size-4 text-primary" />
             </div>
-            <h1 className="text-2xl font-bold text-foreground">إدارة المنتجات</h1>
+            <h1 className="text-2xl font-bold text-foreground">
+              إدارة المنتجات
+            </h1>
           </div>
           <p className="text-sm text-muted-foreground">
             تصفح وأدِر منتجاتك بكل سهولة وكفاءة.
           </p>
         </div>
-        <Button
-          onClick={() => handleOpenModal()}
-          className="gap-2 h-10 px-5 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-200 hover:-translate-y-px"
-        >
-          <Plus className="size-4" />
-          إضافة منتج
-        </Button>
+        <div className="flex items-center gap-2">
+          {/* زرار الـ Refresh اليدوي */}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => refetch()}
+            disabled={isRefetching}
+            className="rounded-xl border-border hover:bg-muted"
+          >
+            <RefreshCw
+              className={`size-4 ${isRefetching ? "animate-spin" : ""}`}
+            />
+          </Button>
+
+          <Button
+            onClick={() => handleOpenModal()}
+            className="gap-2 h-10 px-5 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-200 hover:-translate-y-px"
+          >
+            <Plus className="size-4" />
+            إضافة منتج
+          </Button>
+        </div>
       </div>
 
       {/* Stats cards */}
@@ -144,7 +176,9 @@ export default function ProductsPage() {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">إجمالي المنتجات</p>
-            <p className="text-2xl font-bold text-foreground">{products?.length ?? 0}</p>
+            <p className="text-2xl font-bold text-foreground">
+              {products?.length ?? 0}
+            </p>
           </div>
         </div>
         <div className="bg-white dark:bg-card rounded-2xl border border-border p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow">
@@ -153,7 +187,9 @@ export default function ProductsPage() {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">القيمة الإجمالية</p>
-            <p className="text-2xl font-bold text-foreground">${totalValue.toFixed(2)}</p>
+            <p className="text-2xl font-bold text-foreground">
+              ${totalValue.toFixed(2)}
+            </p>
           </div>
         </div>
         <div className="bg-white dark:bg-card rounded-2xl border border-border p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow">
@@ -162,7 +198,9 @@ export default function ProductsPage() {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">إجمالي الكميات</p>
-            <p className="text-2xl font-bold text-foreground">{totalQuantity}</p>
+            <p className="text-2xl font-bold text-foreground">
+              {totalQuantity}
+            </p>
           </div>
         </div>
       </div>
@@ -201,7 +239,9 @@ export default function ProductsPage() {
                 ) : (
                   <div className="flex flex-col items-center gap-2">
                     <Package className="size-12 text-primary/20" />
-                    <span className="text-xs text-muted-foreground">لا توجد صورة</span>
+                    <span className="text-xs text-muted-foreground">
+                      لا توجد صورة
+                    </span>
                   </div>
                 )}
                 {/* Price badge */}
@@ -263,7 +303,10 @@ export default function ProductsPage() {
               : "قم بإضافة أول منتج لتتمكن من إدارته هنا."}
           </p>
           {!searchTerm && (
-            <Button onClick={() => handleOpenModal()} className="gap-2 shadow-lg shadow-primary/20">
+            <Button
+              onClick={() => handleOpenModal()}
+              className="gap-2 shadow-lg shadow-primary/20"
+            >
               <Plus className="size-4" />
               إضافة أول منتج
             </Button>
@@ -288,7 +331,9 @@ export default function ProductsPage() {
               type="text"
               required
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               className="w-full h-10 px-3 border border-border rounded-xl bg-background focus:ring-2 focus:ring-primary/30 focus:border-primary/50 outline-none transition-all text-sm text-foreground placeholder:text-muted-foreground"
               placeholder="مثال: بيبسي"
             />
@@ -307,7 +352,10 @@ export default function ProductsPage() {
                 step="0.01"
                 value={formData.price}
                 onChange={(e) =>
-                  setFormData({ ...formData, price: parseFloat(e.target.value) || 0 })
+                  setFormData({
+                    ...formData,
+                    price: parseFloat(e.target.value) || 0,
+                  })
                 }
                 className="w-full h-10 px-3 border border-border rounded-xl bg-background focus:ring-2 focus:ring-primary/30 focus:border-primary/50 outline-none transition-all text-sm text-foreground text-left"
                 dir="ltr"
@@ -322,7 +370,10 @@ export default function ProductsPage() {
                 min="0"
                 value={formData.quantity}
                 onChange={(e) =>
-                  setFormData({ ...formData, quantity: parseInt(e.target.value) || 0 })
+                  setFormData({
+                    ...formData,
+                    quantity: parseInt(e.target.value) || 0,
+                  })
                 }
                 className="w-full h-10 px-3 border border-border rounded-xl bg-background focus:ring-2 focus:ring-primary/30 focus:border-primary/50 outline-none transition-all text-sm text-foreground text-left"
                 dir="ltr"
@@ -345,7 +396,9 @@ export default function ProductsPage() {
                       : "انقر لاختيار صورة"}
                   </span>
                   {formData.image && (
-                    <span className="text-xs text-emerald-500 font-medium">تم اختيار الملف ✓</span>
+                    <span className="text-xs text-emerald-500 font-medium">
+                      تم اختيار الملف ✓
+                    </span>
                   )}
                 </div>
                 <input
@@ -353,7 +406,10 @@ export default function ProductsPage() {
                   accept="image/*"
                   className="hidden"
                   onChange={(e) =>
-                    setFormData({ ...formData, image: e.target.files?.[0] || null })
+                    setFormData({
+                      ...formData,
+                      image: e.target.files?.[0] || null,
+                    })
                   }
                 />
               </label>
@@ -379,8 +435,8 @@ export default function ProductsPage() {
               {createMutation.isPending || updateMutation.isPending
                 ? "جاري الحفظ..."
                 : editingProduct
-                ? "حفظ التعديلات"
-                : "إضافة المنتج"}
+                  ? "حفظ التعديلات"
+                  : "إضافة المنتج"}
             </Button>
           </div>
         </form>
