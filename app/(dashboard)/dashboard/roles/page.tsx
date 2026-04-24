@@ -4,10 +4,9 @@ import { useState } from "react";
 import { useRoles } from "@/hooks/useRoles";
 import { Modal } from "@/components/shared/Modal";
 import { Button } from "@/components/ui/button";
-import {
-  Plus, Trash2, Edit, Shield, Loader2, Tag, Search
-} from "lucide-react";
+import { Plus, Trash2, Edit, Shield, Loader2, Tag, Search } from "lucide-react";
 import { Role } from "@/types/role";
+import LoadingState from "@/components/shared/Loading";
 
 // Color cycling for role badges
 const colors = [
@@ -24,7 +23,8 @@ function getRoleColor(index: number) {
 }
 
 export default function RolesPage() {
-  const { useGetAllRoles, useCreateRole, useUpdateRole, useDeleteRole } = useRoles();
+  const { useGetAllRoles, useCreateRole, useUpdateRole, useDeleteRole } =
+    useRoles();
 
   const { data: roles, isLoading } = useGetAllRoles();
   const createMutation = useCreateRole();
@@ -38,7 +38,7 @@ export default function RolesPage() {
   const [roleName, setRoleName] = useState("");
 
   const filtered = roles?.filter((r) =>
-    r.name.toLowerCase().includes(searchTerm.toLowerCase())
+    r.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const openCreate = () => {
@@ -61,12 +61,17 @@ export default function RolesPage() {
     if (editingRole) {
       updateMutation.mutate(
         { id: editingRole._id, data: { name } },
-        { onSuccess: () => setIsFormOpen(false) }
+        { onSuccess: () => setIsFormOpen(false) },
       );
     } else {
       createMutation.mutate(
         { name },
-        { onSuccess: () => { setIsFormOpen(false); setRoleName(""); } }
+        {
+          onSuccess: () => {
+            setIsFormOpen(false);
+            setRoleName("");
+          },
+        },
       );
     }
   };
@@ -79,17 +84,7 @@ export default function RolesPage() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center h-96 gap-4">
-        <div className="relative">
-          <div className="w-14 h-14 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Shield className="size-5 text-primary" />
-          </div>
-        </div>
-        <p className="text-muted-foreground text-sm animate-pulse">جاري التحميل...</p>
-      </div>
-    );
+    return <LoadingState icon={Shield} />;
   }
 
   return (
@@ -101,7 +96,9 @@ export default function RolesPage() {
             <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10">
               <Shield className="size-4 text-primary" />
             </div>
-            <h1 className="text-2xl font-bold text-foreground">إدارة الصلاحيات</h1>
+            <h1 className="text-2xl font-bold text-foreground">
+              إدارة الصلاحيات
+            </h1>
           </div>
           <p className="text-sm text-muted-foreground">
             أنشئ وعدّل وامسح صلاحيات المستخدمين في النظام
@@ -124,12 +121,16 @@ export default function RolesPage() {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">إجمالي الصلاحيات</p>
-            <p className="text-2xl font-bold text-foreground">{roles?.length ?? 0}</p>
+            <p className="text-2xl font-bold text-foreground">
+              {roles?.length ?? 0}
+            </p>
           </div>
         </div>
         <div className="bg-white dark:bg-card border border-border rounded-2xl p-5 flex items-center gap-4 shadow-sm sm:col-span-2">
           <div className="flex-1">
-            <p className="text-sm text-muted-foreground mb-2">الصلاحيات الموجودة</p>
+            <p className="text-sm text-muted-foreground mb-2">
+              الصلاحيات الموجودة
+            </p>
             <div className="flex flex-wrap gap-2">
               {roles?.slice(0, 8).map((role, i) => (
                 <span
@@ -175,12 +176,18 @@ export default function RolesPage() {
             >
               {/* Role Icon + Name */}
               <div className="flex items-center gap-3">
-                <div className={`flex items-center justify-center w-10 h-10 rounded-xl border ${getRoleColor(i)} shrink-0`}>
+                <div
+                  className={`flex items-center justify-center w-10 h-10 rounded-xl border ${getRoleColor(i)} shrink-0`}
+                >
                   <Shield className="size-5" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-foreground text-sm truncate">{role.name}</p>
-                  <p className="text-xs text-muted-foreground font-mono truncate">{role._id.slice(-6)}</p>
+                  <p className="font-semibold text-foreground text-sm truncate">
+                    {role.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground font-mono truncate">
+                    {role._id.slice(-6)}
+                  </p>
                 </div>
               </div>
 
@@ -214,7 +221,9 @@ export default function RolesPage() {
             {searchTerm ? "لا توجد نتائج" : "لا توجد صلاحيات"}
           </h3>
           <p className="text-sm text-muted-foreground mb-6">
-            {searchTerm ? `لا توجد صلاحية باسم "${searchTerm}"` : "ابدأ بإضافة أول صلاحية"}
+            {searchTerm
+              ? `لا توجد صلاحية باسم "${searchTerm}"`
+              : "ابدأ بإضافة أول صلاحية"}
           </p>
           {!searchTerm && (
             <Button onClick={openCreate} className="gap-2">
@@ -248,7 +257,8 @@ export default function RolesPage() {
               dir="ltr"
             />
             <p className="text-xs text-muted-foreground">
-              يُفضّل استخدام حروف إنجليزية صغيرة وشرطة سفلية فقط (مثل: super_admin)
+              يُفضّل استخدام حروف إنجليزية صغيرة وشرطة سفلية فقط (مثل:
+              super_admin)
             </p>
           </div>
 
@@ -256,7 +266,9 @@ export default function RolesPage() {
           {roleName.trim() && (
             <div className="flex items-center gap-2 p-3 rounded-xl bg-muted/40">
               <span className="text-xs text-muted-foreground">معاينة:</span>
-              <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium border ${getRoleColor(0)}`}>
+              <span
+                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium border ${getRoleColor(0)}`}
+              >
                 <Shield className="size-3" />
                 {roleName.trim()}
               </span>
@@ -264,17 +276,33 @@ export default function RolesPage() {
           )}
 
           <div className="flex gap-3 pt-2 border-t border-border">
-            <Button type="button" variant="outline" onClick={() => setIsFormOpen(false)} className="flex-1">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setIsFormOpen(false)}
+              className="flex-1"
+            >
               إلغاء
             </Button>
             <Button
               type="submit"
-              disabled={createMutation.isPending || updateMutation.isPending || !roleName.trim()}
+              disabled={
+                createMutation.isPending ||
+                updateMutation.isPending ||
+                !roleName.trim()
+              }
               className="flex-1 shadow-lg shadow-primary/20"
             >
               {createMutation.isPending || updateMutation.isPending ? (
-                <><Loader2 className="size-4 animate-spin ml-1" />جاري الحفظ...</>
-              ) : editingRole ? "حفظ التعديل" : "إضافة الصلاحية"}
+                <>
+                  <Loader2 className="size-4 animate-spin ml-1" />
+                  جاري الحفظ...
+                </>
+              ) : editingRole ? (
+                "حفظ التعديل"
+              ) : (
+                "إضافة الصلاحية"
+              )}
             </Button>
           </div>
         </form>
@@ -294,7 +322,9 @@ export default function RolesPage() {
             </div>
           </div>
           <div className="text-center space-y-2">
-            <p className="font-semibold text-foreground">هل أنت متأكد من حذف هذه الصلاحية؟</p>
+            <p className="font-semibold text-foreground">
+              هل أنت متأكد من حذف هذه الصلاحية؟
+            </p>
             {deleteTarget && (
               <p className="text-sm text-muted-foreground">
                 سيتم حذف{" "}
@@ -306,20 +336,32 @@ export default function RolesPage() {
             )}
             <div className="flex items-center justify-center gap-2 mt-2 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800">
               <span className="text-xs text-amber-700 dark:text-amber-400">
-                ⚠️ المستخدمون بدون صلاحيات سيحصلون تلقائياً على صلاحية &quot;user&quot;
+                ⚠️ المستخدمون بدون صلاحيات سيحصلون تلقائياً على صلاحية
+                &quot;user&quot;
               </span>
             </div>
           </div>
           <div className="flex gap-3">
-            <Button variant="outline" onClick={() => setDeleteTarget(null)} className="flex-1">إلغاء</Button>
+            <Button
+              variant="outline"
+              onClick={() => setDeleteTarget(null)}
+              className="flex-1"
+            >
+              إلغاء
+            </Button>
             <Button
               onClick={confirmDelete}
               disabled={deleteMutation.isPending}
               className="flex-1 bg-red-500 hover:bg-red-600 text-white border-0 shadow-lg shadow-red-500/25"
             >
               {deleteMutation.isPending ? (
-                <><Loader2 className="size-4 animate-spin ml-1" />جاري الحذف...</>
-              ) : "نعم، احذف"}
+                <>
+                  <Loader2 className="size-4 animate-spin ml-1" />
+                  جاري الحذف...
+                </>
+              ) : (
+                "نعم، احذف"
+              )}
             </Button>
           </div>
         </div>

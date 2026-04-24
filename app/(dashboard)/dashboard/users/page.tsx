@@ -6,23 +6,38 @@ import { useRoles } from "@/hooks/useRoles";
 import { Modal } from "@/components/shared/Modal";
 import { Button } from "@/components/ui/button";
 import {
-  Plus, Trash2, Edit, Users, Search, Shield, Eye, EyeOff, Loader2, Check,
+  Plus,
+  Trash2,
+  Edit,
+  Users,
+  Search,
+  Shield,
+  Eye,
+  EyeOff,
+  Loader2,
+  Check,
 } from "lucide-react";
 import { User } from "@/types/user";
 import { Role } from "@/types/role";
 import { useAuthStore } from "@/store/useAuthStore";
 import { deleteCookie } from "cookies-next";
+import LoadingState from "@/components/shared/Loading";
 
 // Badge for a populated role object
 function RoleBadge({ role }: { role: { _id: string; name: string } }) {
   const colorMap: Record<string, string> = {
-    super_admin: "text-red-500 bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800",
+    super_admin:
+      "text-red-500 bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800",
     admin: "text-primary bg-primary/10 border-primary/20",
     user: "text-muted-foreground bg-muted border-border",
   };
-  const color = colorMap[role.name] ?? "text-violet-600 bg-violet-50 dark:bg-violet-950/20 border-violet-200";
+  const color =
+    colorMap[role.name] ??
+    "text-violet-600 bg-violet-50 dark:bg-violet-950/20 border-violet-200";
   return (
-    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border ${color}`}>
+    <span
+      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border ${color}`}
+    >
       <Shield className="size-3" />
       {role.name}
     </span>
@@ -40,9 +55,10 @@ function RolePicker({
   onChange: (names: string[]) => void;
 }) {
   const toggle = (name: string) => {
-    onChange(selected.includes(name)
-      ? selected.filter((r) => r !== name)
-      : [...selected, name]
+    onChange(
+      selected.includes(name)
+        ? selected.filter((r) => r !== name)
+        : [...selected, name],
     );
   };
 
@@ -83,7 +99,8 @@ function RolePicker({
 }
 
 export default function UsersPage() {
-  const { useGetAllUsers, useCreateUser, useUpdateUser, useDeleteUser } = useUsers();
+  const { useGetAllUsers, useCreateUser, useUpdateUser, useDeleteUser } =
+    useUsers();
   const { useGetAllRoles } = useRoles();
 
   const { data: users, isLoading } = useGetAllUsers();
@@ -108,7 +125,7 @@ export default function UsersPage() {
   const currentUser = useAuthStore((state) => state.user);
 
   const filtered = users?.filter((u) =>
-    u.username.toLowerCase().includes(searchTerm.toLowerCase())
+    u.username.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const openCreate = () => {
@@ -135,13 +152,20 @@ export default function UsersPage() {
 
     if (editingUser) {
       updateMutation.mutate(
-        { id: editingUser._id, data: { username: formData.username, roles: formData.rolesNames } },
-        { onSuccess: () => setIsFormOpen(false) }
+        {
+          id: editingUser._id,
+          data: { username: formData.username, roles: formData.rolesNames },
+        },
+        { onSuccess: () => setIsFormOpen(false) },
       );
     } else {
       createMutation.mutate(
-        { username: formData.username, password: formData.password, roles: formData.rolesNames },
-        { onSuccess: () => setIsFormOpen(false) }
+        {
+          username: formData.username,
+          password: formData.password,
+          roles: formData.rolesNames,
+        },
+        { onSuccess: () => setIsFormOpen(false) },
       );
     }
   };
@@ -149,7 +173,7 @@ export default function UsersPage() {
   const confirmDelete = () => {
     if (!deleteTarget) return;
     const isSelfDelete = deleteTarget._id === currentUser?._id;
-    
+
     deleteMutation.mutate(deleteTarget._id, {
       onSuccess: () => {
         setDeleteTarget(null);
@@ -163,17 +187,7 @@ export default function UsersPage() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center h-96 gap-4">
-        <div className="relative">
-          <div className="w-14 h-14 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Users className="size-5 text-primary" />
-          </div>
-        </div>
-        <p className="text-muted-foreground text-sm animate-pulse">جاري التحميل...</p>
-      </div>
-    );
+    return <LoadingState icon={Users} />;
   }
 
   return (
@@ -185,7 +199,9 @@ export default function UsersPage() {
             <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10">
               <Users className="size-4 text-primary" />
             </div>
-            <h1 className="text-2xl font-bold text-foreground">إدارة المستخدمين</h1>
+            <h1 className="text-2xl font-bold text-foreground">
+              إدارة المستخدمين
+            </h1>
           </div>
           <p className="text-sm text-muted-foreground">
             إضافة وتعديل وحذف مستخدمي النظام وصلاحياتهم
@@ -203,16 +219,29 @@ export default function UsersPage() {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
-          { label: "إجمالي المستخدمين", value: users?.length ?? 0, color: "text-primary bg-primary/10" },
-          { label: "عدد الصلاحيات", value: allRoles.length, color: "text-emerald-500 bg-emerald-50 dark:bg-emerald-950/20" },
+          {
+            label: "إجمالي المستخدمين",
+            value: users?.length ?? 0,
+            color: "text-primary bg-primary/10",
+          },
+          {
+            label: "عدد الصلاحيات",
+            value: allRoles.length,
+            color: "text-emerald-500 bg-emerald-50 dark:bg-emerald-950/20",
+          },
           {
             label: "لديهم أكثر من صلاحية",
             value: users?.filter((u) => u.roles.length > 1).length ?? 0,
             color: "text-violet-500 bg-violet-50 dark:bg-violet-950/20",
           },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white dark:bg-card border border-border rounded-2xl p-5 flex items-center gap-4 shadow-sm">
-            <div className={`flex items-center justify-center w-11 h-11 rounded-xl ${stat.color} shrink-0`}>
+          <div
+            key={stat.label}
+            className="bg-white dark:bg-card border border-border rounded-2xl p-5 flex items-center gap-4 shadow-sm"
+          >
+            <div
+              className={`flex items-center justify-center w-11 h-11 rounded-xl ${stat.color} shrink-0`}
+            >
               <Users className="size-5" />
             </div>
             <div>
@@ -259,7 +288,9 @@ export default function UsersPage() {
                   <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-primary/10 text-primary font-bold text-sm shrink-0">
                     {user.username.charAt(0).toUpperCase()}
                   </div>
-                  <span className="font-medium text-foreground text-sm">{user.username}</span>
+                  <span className="font-medium text-foreground text-sm">
+                    {user.username}
+                  </span>
                 </div>
 
                 {/* Populated Roles */}
@@ -269,7 +300,9 @@ export default function UsersPage() {
                       <RoleBadge key={role._id} role={role} />
                     ))
                   ) : (
-                    <span className="text-xs text-muted-foreground italic">لا توجد صلاحيات</span>
+                    <span className="text-xs text-muted-foreground italic">
+                      لا توجد صلاحيات
+                    </span>
                   )}
                 </div>
 
@@ -295,7 +328,7 @@ export default function UsersPage() {
                       حذف
                     </button>
                   ) : (
-                    <span 
+                    <span
                       className="flex items-center gap-1 h-8 px-3 text-xs font-medium text-muted-foreground opacity-50 cursor-not-allowed"
                       title="لا يمكن حذف مدير خارق آخر"
                     >
@@ -317,7 +350,9 @@ export default function UsersPage() {
             {searchTerm ? "لا توجد نتائج" : "لا يوجد مستخدمون"}
           </h3>
           <p className="text-sm text-muted-foreground mb-6">
-            {searchTerm ? `لا يوجد مستخدم باسم "${searchTerm}"` : "ابدأ بإضافة أول مستخدم"}
+            {searchTerm
+              ? `لا يوجد مستخدم باسم "${searchTerm}"`
+              : "ابدأ بإضافة أول مستخدم"}
           </p>
           {!searchTerm && (
             <Button onClick={openCreate} className="gap-2">
@@ -345,7 +380,9 @@ export default function UsersPage() {
               type="text"
               required
               value={formData.username}
-              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
               className="w-full h-10 px-3 border border-border rounded-xl bg-background text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all"
               placeholder="مثال: ahmed123"
             />
@@ -362,7 +399,9 @@ export default function UsersPage() {
                   type={showPassword ? "text" : "password"}
                   required
                   value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                   className="w-full h-10 pr-3 pl-10 border border-border rounded-xl bg-background text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all"
                   placeholder="أدخل كلمة مرور قوية"
                 />
@@ -371,7 +410,11 @@ export default function UsersPage() {
                   onClick={() => setShowPassword((v) => !v)}
                   className="absolute inset-y-0 left-0 flex items-center justify-center w-10 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                  {showPassword ? (
+                    <EyeOff className="size-4" />
+                  ) : (
+                    <Eye className="size-4" />
+                  )}
                 </button>
               </div>
             </div>
@@ -385,28 +428,46 @@ export default function UsersPage() {
             <RolePicker
               allRoles={allRoles}
               selected={formData.rolesNames}
-              onChange={(names) => setFormData({ ...formData, rolesNames: names })}
+              onChange={(names) =>
+                setFormData({ ...formData, rolesNames: names })
+              }
             />
             {formData.rolesNames.length === 0 && (
-              <p className="text-xs text-red-500">اختر صلاحية واحدة على الأقل</p>
+              <p className="text-xs text-red-500">
+                اختر صلاحية واحدة على الأقل
+              </p>
             )}
           </div>
 
           {/* Actions */}
           <div className="flex gap-3 pt-2 border-t border-border">
-            <Button type="button" variant="outline" onClick={() => setIsFormOpen(false)} className="flex-1">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setIsFormOpen(false)}
+              className="flex-1"
+            >
               إلغاء
             </Button>
             <Button
               type="submit"
               disabled={
-                createMutation.isPending || updateMutation.isPending || formData.rolesNames.length === 0
+                createMutation.isPending ||
+                updateMutation.isPending ||
+                formData.rolesNames.length === 0
               }
               className="flex-1 shadow-lg shadow-primary/20"
             >
               {createMutation.isPending || updateMutation.isPending ? (
-                <><Loader2 className="size-4 animate-spin ml-1" />جاري الحفظ...</>
-              ) : editingUser ? "حفظ التعديلات" : "إضافة المستخدم"}
+                <>
+                  <Loader2 className="size-4 animate-spin ml-1" />
+                  جاري الحفظ...
+                </>
+              ) : editingUser ? (
+                "حفظ التعديلات"
+              ) : (
+                "إضافة المستخدم"
+              )}
             </Button>
           </div>
         </form>
@@ -426,7 +487,9 @@ export default function UsersPage() {
             </div>
           </div>
           <div className="text-center space-y-2">
-            <p className="font-semibold text-foreground">هل أنت متأكد من حذف هذا المستخدم؟</p>
+            <p className="font-semibold text-foreground">
+              هل أنت متأكد من حذف هذا المستخدم؟
+            </p>
             {deleteTarget && (
               <p className="text-sm text-muted-foreground">
                 سيتم حذف{" "}
@@ -438,15 +501,26 @@ export default function UsersPage() {
             )}
           </div>
           <div className="flex gap-3">
-            <Button variant="outline" onClick={() => setDeleteTarget(null)} className="flex-1">إلغاء</Button>
+            <Button
+              variant="outline"
+              onClick={() => setDeleteTarget(null)}
+              className="flex-1"
+            >
+              إلغاء
+            </Button>
             <Button
               onClick={confirmDelete}
               disabled={deleteMutation.isPending}
               className="flex-1 bg-red-500 hover:bg-red-600 text-white border-0 shadow-lg shadow-red-500/25"
             >
               {deleteMutation.isPending ? (
-                <><Loader2 className="size-4 animate-spin ml-1" />جاري الحذف...</>
-              ) : "نعم، احذف"}
+                <>
+                  <Loader2 className="size-4 animate-spin ml-1" />
+                  جاري الحذف...
+                </>
+              ) : (
+                "نعم، احذف"
+              )}
             </Button>
           </div>
         </div>

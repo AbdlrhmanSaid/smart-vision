@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Product } from "@/types/product";
 import { Modal } from "@/components/shared/Modal";
+import LoadingState from "@/components/shared/Loading";
 
 export default function ProductsPage() {
   const {
@@ -112,19 +113,7 @@ export default function ProductsPage() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center h-96 gap-4">
-        <div className="relative">
-          <div className="w-14 h-14 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Package className="size-5 text-primary" />
-          </div>
-        </div>
-        <p className="text-muted-foreground text-sm animate-pulse">
-          جاري التحميل...
-        </p>
-      </div>
-    );
+    return <LoadingState icon={Package} />;
   }
 
   return (

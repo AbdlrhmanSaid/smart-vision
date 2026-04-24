@@ -1,9 +1,10 @@
 "use client";
 
-import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { LogOut, Bell, Search, LayoutDashboard, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { AuthService } from "@/services/auth.service";
 
 const pageTitles: Record<string, string> = {
   "/dashboard": "لوحة التحكم",
@@ -22,8 +23,8 @@ export function Header({ onMenuToggle }: HeaderProps) {
   const pathname = usePathname();
   const pageTitle = pageTitles[pathname] ?? "لوحة التحكم";
 
-  const handleLogout = () => {
-    deleteCookie("token", { path: "/" });
+  const handleLogout = async () => {
+    await AuthService.logout();
     router.push("/login");
     router.refresh();
   };
@@ -31,7 +32,6 @@ export function Header({ onMenuToggle }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center border-b border-border bg-white/90 dark:bg-card/90 backdrop-blur-xl shadow-sm">
       <div className="flex flex-1 items-center gap-4 px-4 sm:px-6 lg:px-8">
-
         {/* Hamburger button — mobile only */}
         <button
           onClick={onMenuToggle}
@@ -44,7 +44,9 @@ export function Header({ onMenuToggle }: HeaderProps) {
         {/* Page Title (mobile) */}
         <div className="flex items-center gap-1.5 sm:hidden">
           <LayoutDashboard className="size-4 text-primary" />
-          <span className="text-sm font-semibold text-foreground">{pageTitle}</span>
+          <span className="text-sm font-semibold text-foreground">
+            {pageTitle}
+          </span>
         </div>
 
         {/* Search bar */}
@@ -65,7 +67,8 @@ export function Header({ onMenuToggle }: HeaderProps) {
         <div className="flex items-center gap-1.5">
           {/* Notification Bell */}
           <div className="relative">
-            <button
+            <Link
+              href="/dashboard/activity"
               aria-label="الإشعارات"
               className="relative flex items-center justify-center w-9 h-9 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-200"
             >
@@ -75,7 +78,7 @@ export function Header({ onMenuToggle }: HeaderProps) {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex rounded-full size-[7px] bg-primary" />
               </span>
-            </button>
+            </Link>
           </div>
 
           {/* Divider */}

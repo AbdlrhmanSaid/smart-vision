@@ -1,0 +1,55 @@
+import Activity from "../models/Activity.js";
+
+// @desc    Log a new activity
+// @param   {Object} data - { user, description, isAI }
+export const logActivity = async ({ user, description, isAI = false }) => {
+  try {
+    const activity = new Activity({
+      user: user?._id || user || null,
+      description,
+      isAI,
+    });
+    await activity.save();
+  } catch (error) {
+    console.error("Error logging activity:", error.message);
+  }
+};
+
+// @desc    Create manual activity
+// @route   POST /api/activities
+export const createManualActivity = async (req, res) => {
+  try {
+    const { description, isAI } = req.body;
+    await logActivity({ user: req.user, description, isAI });
+    res.status(201).json({ message: "تم تسجيل النشاط" });
+  } catch (error) {
+    res.status(500).json({ message: "خطأ في السيرفر", error: error.message });
+  }
+};
+
+// @desc    Get all activities
+// @route   GET /api/activities
+export const getActivities = async (req, res) => {
+  try {
+    const activities = await Activity.find({})
+      .populate("user", "username")
+      .sort({ createdAt: -1 });
+    res.json(activities);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
+// @desc    Delete all activities (Optional, but useful)
+// @route   DELETE /api/activities
+export const clearActivities = async (req, res) => {
+  try {
+    await Activity.deleteMany({});
+    res.json({ message: "Activities cleared" });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
+
+

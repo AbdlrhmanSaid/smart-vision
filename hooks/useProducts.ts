@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { ProductService } from "@/services/product.service";
+import { ActivityService } from "@/services/activity.service";
 import { Product } from "@/types/product";
 import toast from "react-hot-toast";
 
@@ -14,7 +15,7 @@ export const useProducts = () => {
     return useQuery({
       queryKey: PRODUCTS_QUERY_KEY,
       queryFn: ProductService.getAll,
-      refetchInterval: 3000,
+      refetchInterval: 5000,
       refetchIntervalInBackground: true,
     });
   };
@@ -32,9 +33,12 @@ export const useProducts = () => {
   const useCreateProduct = () => {
     return useMutation({
       mutationFn: (data: FormData) => ProductService.create(data),
-      onSuccess: () => {
+      onSuccess: (newProduct: Product) => {
         toast.success("تم إضافة المنتج بنجاح");
         queryClient.invalidateQueries({ queryKey: PRODUCTS_QUERY_KEY });
+        
+        // سجل النشاط يدوياً من الفرونت اند
+        ActivityService.create(`قام بإضافة منتج جديد: ${newProduct.name}`).catch(console.error);
       },
       onError: (error: any) => {
         const message =
@@ -51,14 +55,17 @@ export const useProducts = () => {
         ProductService.update(id, data),
       onSuccess: (updatedProduct: Product) => {
         toast.success("تم تعديل المنتج بنجاح");
-        // Update specific product in the cache and invalidate the main list
         queryClient.invalidateQueries({ queryKey: PRODUCTS_QUERY_KEY });
+        
         if (updatedProduct?._id) {
           queryClient.setQueryData(
             [...PRODUCTS_QUERY_KEY, updatedProduct._id],
             updatedProduct,
           );
         }
+
+        // سجل النشاط يدوياً من الفرونت اند
+        ActivityService.create(`قام بتعديل بيانات المنتج: ${updatedProduct.name}`).catch(console.error);
       },
       onError: (error: any) => {
         const message =
@@ -72,9 +79,12 @@ export const useProducts = () => {
   const useDeleteProduct = () => {
     return useMutation({
       mutationFn: (id: string) => ProductService.delete(id),
-      onSuccess: () => {
+      onSuccess: (_, id) => {
         toast.success("تم مسح المنتج بنجاح");
         queryClient.invalidateQueries({ queryKey: PRODUCTS_QUERY_KEY });
+        
+        // سجل النشاط يدوياً
+        ActivityService.create(`قام بحذف منتج من النظام`).catch(console.error);
       },
       onError: (error: any) => {
         const message =
