@@ -23,11 +23,13 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Modal } from "@/components/shared/Modal";
 import { withRoles } from "@/components/shared/withRoles";
+import { useIsViewOnly } from "@/hooks/useIsViewOnly";
 
 function ActivityPage() {
   const { useGetAllActivities, useClearActivities } = useActivity();
   const { data: activities, isLoading, isRefetching } = useGetAllActivities();
   const clearMutation = useClearActivities();
+  const isViewOnly = useIsViewOnly();
   const [isClearModalOpen, setIsClearModalOpen] = useState(false);
 
   if (isLoading) {
@@ -97,7 +99,9 @@ function ActivityPage() {
               variant="outline"
               size="sm"
               onClick={() => setIsClearModalOpen(true)}
-              className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 border-red-200 dark:border-red-800 gap-2 h-9 rounded-xl"
+              disabled={isViewOnly}
+              title={isViewOnly ? "وضع العرض فقط — لا يمكن مسح السجل" : undefined}
+              className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 border-red-200 dark:border-red-800 gap-2 h-9 rounded-xl disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <Trash2 className="size-4" />
               <span>مسح السجل</span>

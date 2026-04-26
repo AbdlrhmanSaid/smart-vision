@@ -23,6 +23,7 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { deleteCookie } from "cookies-next";
 import LoadingState from "@/components/shared/Loading";
 import { withRoles } from "@/components/shared/withRoles";
+import { useIsViewOnly } from "@/hooks/useIsViewOnly";
 
 function RoleBadge({ role }: { role: { _id: string; name: string } }) {
   const colorMap: Record<string, string> = {
@@ -122,6 +123,7 @@ function UsersPage() {
   });
 
   const currentUser = useAuthStore((state) => state.user);
+  const isViewOnly = useIsViewOnly();
 
   const filtered = users?.filter((u) =>
     u.username.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -208,7 +210,9 @@ function UsersPage() {
         </div>
         <Button
           onClick={openCreate}
-          className="gap-2 h-10 px-5 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:-translate-y-px"
+          disabled={isViewOnly}
+          title={isViewOnly ? "وضع العرض فقط — لا يمكن الإضافة" : undefined}
+          className="gap-2 h-10 px-5 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
           <Plus className="size-4" />
           إضافة مستخدم
@@ -308,8 +312,10 @@ function UsersPage() {
                 {/* Actions */}
                 <div className="flex items-center gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
                   <button
-                    onClick={() => openEdit(user)}
-                    className="flex items-center gap-1 h-8 px-3 text-xs font-medium text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                    onClick={() => !isViewOnly && openEdit(user)}
+                    disabled={isViewOnly}
+                    title={isViewOnly ? "وضع العرض فقط" : undefined}
+                    className="flex items-center gap-1 h-8 px-3 text-xs font-medium text-primary hover:bg-primary/10 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     <Edit className="size-3.5" />
                     تعديل
@@ -320,8 +326,10 @@ function UsersPage() {
                     user._id !== currentUser?._id
                   ) ? (
                     <button
-                      onClick={() => setDeleteTarget(user)}
-                      className="flex items-center gap-1 h-8 px-3 text-xs font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-colors"
+                      onClick={() => !isViewOnly && setDeleteTarget(user)}
+                      disabled={isViewOnly}
+                      title={isViewOnly ? "وضع العرض فقط" : undefined}
+                      className="flex items-center gap-1 h-8 px-3 text-xs font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       <Trash2 className="size-3.5" />
                       حذف

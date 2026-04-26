@@ -6,6 +6,7 @@ import {
   REGISTERED_PAGES,
 } from "@/store/usePermissionsStore";
 import { useRoles } from "@/hooks/useRoles";
+import { useIsViewOnly } from "@/hooks/useIsViewOnly";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import {
@@ -22,6 +23,7 @@ import {
   Check,
   X,
   Info,
+  Eye,
 } from "lucide-react";
 
 // أيقونة لكل صفحة
@@ -44,6 +46,8 @@ export default function PermissionsPage() {
 
   const { pageRoles, addRoleToPage, removeRoleFromPage } =
     usePermissionsStore();
+
+  const isViewOnly = useIsViewOnly();
 
   // فقط super_admin يدخل هنا
   const isSuperAdmin = user?.roles?.some((r) => r.name === "super_admin");
@@ -88,6 +92,16 @@ export default function PermissionsPage() {
           تلقائياً.
         </div>
       </div>
+
+      {/* View-Only Banner */}
+      {isViewOnly && (
+        <div className="flex items-center gap-3 p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800">
+          <Eye className="size-4 text-amber-600 shrink-0" />
+          <p className="text-sm text-amber-700 dark:text-amber-400 font-medium">
+            وضع العرض فقط — لا يمكنك تعديل صلاحيات الصفحات
+          </p>
+        </div>
+      )}
 
       {/* Pages Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -159,14 +173,20 @@ export default function PermissionsPage() {
                           <button
                             key={role._id}
                             type="button"
+                            disabled={isViewOnly}
                             onClick={() => {
+                              if (isViewOnly) return;
                               if (isSelected) {
                                 removeRoleFromPage(page.key, role.name);
                               } else {
                                 addRoleToPage(page.key, role.name);
                               }
                             }}
-                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-all hover:-translate-y-px ${
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-all ${
+                              isViewOnly
+                                ? "opacity-60 cursor-not-allowed"
+                                : "hover:-translate-y-px"
+                            } ${
                               isSelected
                                 ? "bg-primary text-primary-foreground border-primary shadow-sm shadow-primary/20"
                                 : "bg-muted text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
@@ -190,13 +210,16 @@ export default function PermissionsPage() {
                   <div className="flex gap-2 pt-1">
                     <button
                       type="button"
+                      disabled={isViewOnly}
                       onClick={() => {
-                        // اختر كل الـ roles
+                        if (isViewOnly) return;
                         allRoles
                           .filter((r) => r.name !== "super_admin")
                           .forEach((r) => addRoleToPage(page.key, r.name));
                       }}
-                      className="flex items-center gap-1 text-xs text-primary hover:underline transition-colors"
+                      className={`flex items-center gap-1 text-xs text-primary transition-colors ${
+                        isViewOnly ? "opacity-40 cursor-not-allowed" : "hover:underline"
+                      }`}
                     >
                       <Check className="size-3" />
                       اختيار الكل
@@ -204,13 +227,16 @@ export default function PermissionsPage() {
                     <span className="text-muted-foreground text-xs">·</span>
                     <button
                       type="button"
+                      disabled={isViewOnly}
                       onClick={() => {
-                        // امسح كل الـ roles (اجعل الصفحة مفتوحة)
+                        if (isViewOnly) return;
                         usePermissionsStore
                           .getState()
                           .setPageRoles(page.key, []);
                       }}
-                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground hover:underline transition-colors"
+                      className={`flex items-center gap-1 text-xs text-muted-foreground transition-colors ${
+                        isViewOnly ? "opacity-40 cursor-not-allowed" : "hover:text-foreground hover:underline"
+                      }`}
                     >
                       <X className="size-3" />
                       إزالة الكل (مفتوح)

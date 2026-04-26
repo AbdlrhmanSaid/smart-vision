@@ -18,6 +18,7 @@ import { Product } from "@/types/product";
 import { Modal } from "@/components/shared/Modal";
 import LoadingState from "@/components/shared/Loading";
 import { withRoles } from "@/components/shared/withRoles";
+import { useIsViewOnly } from "@/hooks/useIsViewOnly";
 
 function ProductsPage() {
   const {
@@ -36,6 +37,7 @@ function ProductsPage() {
   const createMutation = useCreateProduct();
   const updateMutation = useUpdateProduct();
   const deleteMutation = useDeleteProduct();
+  const isViewOnly = useIsViewOnly();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -150,7 +152,9 @@ function ProductsPage() {
 
           <Button
             onClick={() => handleOpenModal()}
-            className="gap-2 h-10 px-5 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-200 hover:-translate-y-px"
+            disabled={isViewOnly}
+            title={isViewOnly ? "وضع العرض فقط — لا يمكن الإضافة" : undefined}
+            className="gap-2 h-10 px-5 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-200 hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
           >
             <Plus className="size-4" />
             إضافة منتج
@@ -257,17 +261,20 @@ function ProductsPage() {
                 {/* Actions */}
                 <div className="mt-auto flex items-center gap-2 border-t border-border pt-3">
                   <button
-                    onClick={() => handleOpenModal(product)}
-                    className="flex-1 flex items-center justify-center gap-1.5 h-8 text-xs font-medium text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                    onClick={() => !isViewOnly && handleOpenModal(product)}
+                    disabled={isViewOnly}
+                    title={isViewOnly ? "وضع العرض فقط" : undefined}
+                    className="flex-1 flex items-center justify-center gap-1.5 h-8 text-xs font-medium text-primary hover:bg-primary/10 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     <Edit className="size-3.5" />
                     تعديل
                   </button>
                   <div className="w-px h-5 bg-border" />
                   <button
-                    onClick={() => handleDelete(product)}
-                    disabled={deleteMutation.isPending}
-                    className="flex-1 flex items-center justify-center gap-1.5 h-8 text-xs font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-colors disabled:opacity-50"
+                    onClick={() => !isViewOnly && handleDelete(product)}
+                    disabled={deleteMutation.isPending || isViewOnly}
+                    title={isViewOnly ? "وضع العرض فقط" : undefined}
+                    className="flex-1 flex items-center justify-center gap-1.5 h-8 text-xs font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     <Trash2 className="size-3.5" />
                     حذف
@@ -295,7 +302,8 @@ function ProductsPage() {
           {!searchTerm && (
             <Button
               onClick={() => handleOpenModal()}
-              className="gap-2 shadow-lg shadow-primary/20"
+              disabled={isViewOnly}
+              className="gap-2 shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Plus className="size-4" />
               إضافة أول منتج

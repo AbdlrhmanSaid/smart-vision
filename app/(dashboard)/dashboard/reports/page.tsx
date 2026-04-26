@@ -1,9 +1,7 @@
+"use client";
+
 import { ComingSoonPage } from "@/components/shared/ComingSoonPage";
 import { withRoles } from "@/components/shared/withRoles";
-
-export const metadata = {
-  title: "التقارير - Smart Vision",
-};
 
 function ReportsPage() {
   return (

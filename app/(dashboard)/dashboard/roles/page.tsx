@@ -8,6 +8,7 @@ import { Plus, Trash2, Edit, Shield, Loader2, Tag, Search } from "lucide-react";
 import { Role } from "@/types/role";
 import LoadingState from "@/components/shared/Loading";
 import { withRoles } from "@/components/shared/withRoles";
+import { useIsViewOnly } from "@/hooks/useIsViewOnly";
 
 // Color cycling for role badges
 const colors = [
@@ -31,6 +32,7 @@ function RolesPage() {
   const createMutation = useCreateRole();
   const updateMutation = useUpdateRole();
   const deleteMutation = useDeleteRole();
+  const isViewOnly = useIsViewOnly();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -107,7 +109,9 @@ function RolesPage() {
         </div>
         <Button
           onClick={openCreate}
-          className="gap-2 h-10 px-5 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:-translate-y-px"
+          disabled={isViewOnly}
+          title={isViewOnly ? "وضع العرض فقط — لا يمكن الإضافة" : undefined}
+          className="gap-2 h-10 px-5 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
           <Plus className="size-4" />
           إضافة صلاحية
@@ -195,16 +199,20 @@ function RolesPage() {
               {/* Actions */}
               <div className="flex items-center gap-2 border-t border-border pt-3">
                 <button
-                  onClick={() => openEdit(role)}
-                  className="flex-1 flex items-center justify-center gap-1.5 h-8 text-xs font-medium text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                  onClick={() => !isViewOnly && openEdit(role)}
+                  disabled={isViewOnly}
+                  title={isViewOnly ? "وضع العرض فقط" : undefined}
+                  className="flex-1 flex items-center justify-center gap-1.5 h-8 text-xs font-medium text-primary hover:bg-primary/10 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <Edit className="size-3.5" />
                   تعديل
                 </button>
                 <div className="w-px h-5 bg-border" />
                 <button
-                  onClick={() => setDeleteTarget(role)}
-                  className="flex-1 flex items-center justify-center gap-1.5 h-8 text-xs font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-colors"
+                  onClick={() => !isViewOnly && setDeleteTarget(role)}
+                  disabled={isViewOnly}
+                  title={isViewOnly ? "وضع العرض فقط" : undefined}
+                  className="flex-1 flex items-center justify-center gap-1.5 h-8 text-xs font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <Trash2 className="size-3.5" />
                   حذف
@@ -227,7 +235,7 @@ function RolesPage() {
               : "ابدأ بإضافة أول صلاحية"}
           </p>
           {!searchTerm && (
-            <Button onClick={openCreate} className="gap-2">
+            <Button onClick={openCreate} disabled={isViewOnly} className="gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
               <Plus className="size-4" />
               إضافة صلاحية
             </Button>
