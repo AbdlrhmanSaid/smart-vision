@@ -7,10 +7,7 @@ export const metadata = {
 
 function ReportsPage() {
   return (
-    <ComingSoonPage
-      title="التقارير"
-      description="صفحة التقارير قيد التطوير. ستتمكن من عرض التقارير وتحليل البيانات."
-    />
+    <ComingSoonPage title="التقارير" description="صفحة التقارير قيد التطوير." />
   );
 }
 
