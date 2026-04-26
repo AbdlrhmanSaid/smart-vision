@@ -1,34 +1,28 @@
 "use client";
 
 import { useAuthStore } from "@/store/useAuthStore";
-import { usePermissionsStore } from "@/store/usePermissionsStore";
 import { useRouter } from "next/navigation";
 import { useEffect, ComponentType } from "react";
-import { ShieldX, Lock, Loader2 } from "lucide-react";
+import { ShieldX, Lock } from "lucide-react";
 
 // -----------------------------------------------------------------------
-// withRoles — Higher-Order Component لحماية الصفحات بصلاحيات ديناميكية
+// withRoles — Higher-Order Component لحماية الصفحات بالصلاحيات
 //
 // الاستخدام:
 //   export default withRoles("products")(ProductsPage);
+//   export default withRoles("users", "admin")(UsersPage);
 //
-// - يقرأ الـ roles من usePermissionsStore (ديناميكي / قابل للتعديل)
-// - ينتظر انتهاء hydration الـ store من localStorage قبل أي قرار
-// - super_admin معفي تلقائياً
-// - roles فارغة = الصفحة متاحة لأي مستخدم مسجل دخول
+// - يقبل أي عدد من الـ role names مباشرة (بدون localStorage)
+// - يتحقق من useAuthStore مباشرة في كل render
+// - super_admin معفي تلقائياً من كل القيود
+// - roles فارغة = الصفحة متاحة لأي مستخدم مسجّل
 // -----------------------------------------------------------------------
 
-export function withRoles<P extends object>(pageKey: string) {
+export function withRoles<P extends object>(...requiredRoles: string[]) {
   return function (WrappedComponent: ComponentType<P>) {
     function ProtectedPage(props: P) {
       const user = useAuthStore((state) => state.user);
       const router = useRouter();
-
-      // ⚠️ انتظر انتهاء الـ hydration من localStorage أولاً
-      const hasHydrated = usePermissionsStore((state) => state._hasHydrated);
-      const requiredRoles = usePermissionsStore((state) =>
-        state.getRolesForPage(pageKey)
-      );
 
       const userRoles = user?.roles?.map((r) => r.name) ?? [];
       const isSuperAdmin = userRoles.includes("super_admin");
@@ -38,25 +32,13 @@ export function withRoles<P extends object>(pageKey: string) {
         requiredRoles.length === 0 ||
         requiredRoles.some((role) => userRoles.includes(role));
 
-      // لو مفيش يوزر → redirect للـ login
       useEffect(() => {
         if (!user) router.replace("/login");
       }, [user, router]);
 
-      // لو مفيش يوزر → لا تعرض حاجة
       if (!user) return null;
 
-      // ⏳ انتظر انتهاء hydration الـ Zustand persist من localStorage
-      // هذا يمنع render الصفحة قبل معرفة الصلاحيات الحقيقية
-      if (!hasHydrated) {
-        return (
-          <div className="flex items-center justify-center min-h-[60vh]">
-            <Loader2 className="size-8 animate-spin text-primary/40" />
-          </div>
-        );
-      }
-
-      // 🚫 عدم الصلاحية → شاشة احترافية
+      // 🚫 المستخدم لا يملك الصلاحية
       if (!hasAccess) {
         return (
           <div
@@ -108,11 +90,11 @@ export function withRoles<P extends object>(pageKey: string) {
         );
       }
 
-      // ✅ الصلاحية موجودة → عرض الصفحة
+      // ✅ يملك الصلاحية
       return <WrappedComponent {...props} />;
     }
 
-    ProtectedPage.displayName = `withRoles(${pageKey})(${
+    ProtectedPage.displayName = `withRoles(${requiredRoles.join("|")})(${
       WrappedComponent.displayName ?? WrappedComponent.name ?? "Component"
     })`;
 

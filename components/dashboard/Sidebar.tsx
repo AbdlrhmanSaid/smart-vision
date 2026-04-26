@@ -10,12 +10,10 @@ import {
   ChevronRight,
   X,
   Shield,
-  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import logo from "@/public/logo-removebg.png";
-import { useAuthStore } from "@/store/useAuthStore";
 
 const menuItems = [
   { title: "لوحة التحكم", href: "/dashboard", icon: LayoutDashboard },
@@ -32,8 +30,6 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
-  const user = useAuthStore((state) => state.user);
-  const isSuperAdmin = user?.roles?.some((r) => r.name === "super_admin");
 
   return (
     <>
@@ -50,9 +46,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       <aside
         className={cn(
           "fixed inset-y-0 right-0 z-50 w-72 flex flex-col bg-white dark:bg-card border-l border-border shadow-xl shadow-primary/5 transition-transform duration-300 ease-in-out",
-          // Desktop: always visible
           "md:translate-x-0",
-          // Mobile: toggled by isOpen
           isOpen ? "translate-x-0" : "translate-x-full md:translate-x-0",
         )}
       >
@@ -128,47 +122,6 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               </Link>
             );
           })}
-
-          {/* رابط إدارة الصلاحيات — فقط للـ super_admin */}
-          {isSuperAdmin && (
-            <>
-              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest px-3 mt-3 mb-2">
-                الإدارة المتقدمة
-              </p>
-              {(() => {
-                const href = "/dashboard/permissions";
-                const isActive = pathname === href;
-                return (
-                  <Link
-                    href={href}
-                    onClick={onClose}
-                    className={cn(
-                      "group flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 relative overflow-hidden",
-                      isActive
-                        ? "bg-primary text-primary-foreground shadow-md shadow-primary/25"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-                    )}
-                  >
-                    {isActive && (
-                      <div className="absolute inset-0 bg-linear-to-r from-white/10 to-transparent pointer-events-none" />
-                    )}
-                    <ShieldCheck
-                      className={cn(
-                        "size-5 shrink-0 transition-transform duration-200 group-hover:scale-110",
-                        isActive
-                          ? "text-primary-foreground"
-                          : "text-muted-foreground group-hover:text-accent-foreground",
-                      )}
-                    />
-                    <span className="flex-1">صلاحيات الصفحات</span>
-                    {isActive && (
-                      <ChevronRight className="size-4 text-primary-foreground/70" />
-                    )}
-                  </Link>
-                );
-              })()}
-            </>
-          )}
         </nav>
 
         {/* Footer */}
