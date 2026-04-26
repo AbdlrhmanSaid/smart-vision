@@ -22,8 +22,8 @@ import { Role } from "@/types/role";
 import { useAuthStore } from "@/store/useAuthStore";
 import { deleteCookie } from "cookies-next";
 import LoadingState from "@/components/shared/Loading";
+import { withRoles } from "@/components/shared/withRoles";
 
-// Badge for a populated role object
 function RoleBadge({ role }: { role: { _id: string; name: string } }) {
   const colorMap: Record<string, string> = {
     super_admin:
@@ -44,14 +44,13 @@ function RoleBadge({ role }: { role: { _id: string; name: string } }) {
   );
 }
 
-// Checkbox-style role picker using roles from API
 function RolePicker({
   allRoles,
   selected,
   onChange,
 }: {
   allRoles: Role[];
-  selected: string[]; // selected role names
+  selected: string[];
   onChange: (names: string[]) => void;
 }) {
   const toggle = (name: string) => {
@@ -98,7 +97,7 @@ function RolePicker({
   );
 }
 
-export default function UsersPage() {
+function UsersPage() {
   const { useGetAllUsers, useCreateUser, useUpdateUser, useDeleteUser } =
     useUsers();
   const { useGetAllRoles } = useRoles();
@@ -528,3 +527,5 @@ export default function UsersPage() {
     </div>
   );
 }
+
+export default withRoles("users")(UsersPage);

@@ -38,17 +38,21 @@ axiosInstance.interceptors.request.use(
 
 import { deleteCookie } from "cookies-next";
 
-// Response Interceptor: للتعامل مع انتهاء صلاحية التوكين (401 أو 403)
+// Response Interceptor
+// - 401: التوكن منتهي أو غير موجود → سجّل خروج وأعد للـ login
+// - 403: التوكن صالح لكن المستخدم لا يملك الصلاحية → لا تعمل logout،
+//         فقط أعد رفض الـ promise وسيتعامل معه withRoles أو الـ component
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401 || error.response?.status === 403) {
-      console.error("الجلسة انتهت أو غير مصرح لك، يرجى تسجيل الدخول مجدداً");
+    if (error.response?.status === 401) {
+      console.error("الجلسة انتهت، يرجى تسجيل الدخول مجدداً");
       if (typeof window !== "undefined") {
         deleteCookie("token");
         window.location.href = "/login";
       }
     }
+    // 403 = ممنوع لكن مصادق عليه — لا تعمل logout
     return Promise.reject(error);
   },
 );

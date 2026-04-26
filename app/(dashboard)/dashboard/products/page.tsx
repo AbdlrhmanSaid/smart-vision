@@ -17,8 +17,9 @@ import {
 import { Product } from "@/types/product";
 import { Modal } from "@/components/shared/Modal";
 import LoadingState from "@/components/shared/Loading";
+import { withRoles } from "@/components/shared/withRoles";
 
-export default function ProductsPage() {
+function ProductsPage() {
   const {
     useGetAllProducts,
     useCreateProduct,
@@ -487,3 +488,5 @@ export default function ProductsPage() {
     </div>
   );
 }
+
+export default withRoles("products")(ProductsPage);

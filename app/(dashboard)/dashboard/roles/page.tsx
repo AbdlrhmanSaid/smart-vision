@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, Trash2, Edit, Shield, Loader2, Tag, Search } from "lucide-react";
 import { Role } from "@/types/role";
 import LoadingState from "@/components/shared/Loading";
+import { withRoles } from "@/components/shared/withRoles";
 
 // Color cycling for role badges
 const colors = [
@@ -22,7 +23,7 @@ function getRoleColor(index: number) {
   return colors[index % colors.length];
 }
 
-export default function RolesPage() {
+function RolesPage() {
   const { useGetAllRoles, useCreateRole, useUpdateRole, useDeleteRole } =
     useRoles();
 
@@ -369,3 +370,5 @@ export default function RolesPage() {
     </div>
   );
 }
+
+export default withRoles("roles")(RolesPage);

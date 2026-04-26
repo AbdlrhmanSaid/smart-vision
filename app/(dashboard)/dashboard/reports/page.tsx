@@ -1,10 +1,11 @@
 import { ComingSoonPage } from "@/components/shared/ComingSoonPage";
+import { withRoles } from "@/components/shared/withRoles";
 
 export const metadata = {
   title: "التقارير - Smart Vision",
 };
 
-export default function SettingsPage() {
+function ReportsPage() {
   return (
     <ComingSoonPage
       title="التقارير"
@@ -12,3 +13,5 @@ export default function SettingsPage() {
     />
   );
 }
+
+export default withRoles("reports")(ReportsPage);

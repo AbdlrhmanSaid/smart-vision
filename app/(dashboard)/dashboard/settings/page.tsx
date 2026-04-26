@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useUsers } from "@/hooks/useUsers";
 import { Button } from "@/components/ui/button";
-import { Eye, EyeOff, Lock, ShieldCheck, Loader2, KeyRound } from "lucide-react";
+import { Eye, EyeOff, Lock, ShieldCheck, Loader2, KeyRound, User, Shield } from "lucide-react";
+import { useAuthStore } from "@/store/useAuthStore";
 
 function InputField({
   id, label, value, onChange, show, onToggle, placeholder, disabled,
@@ -42,7 +43,14 @@ function InputField({
   );
 }
 
+const roleColorMap: Record<string, string> = {
+  super_admin: "text-red-600 bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800",
+  admin: "text-primary bg-primary/10 border-primary/20",
+  user: "text-muted-foreground bg-muted border-border",
+};
+
 export default function SettingsPage() {
+  const currentUser = useAuthStore((state) => state.user);
   const { useChangePassword } = useUsers();
   const changePasswordMutation = useChangePassword();
 
@@ -114,6 +122,57 @@ export default function SettingsPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* User Profile Card — full width */}
+        {currentUser && (
+          <div className="lg:col-span-3 bg-white dark:bg-card border border-border rounded-2xl shadow-sm overflow-hidden">
+            <div className="flex items-center gap-3 px-6 py-4 border-b border-border">
+              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-primary/10">
+                <User className="size-4 text-primary" />
+              </div>
+              <div>
+                <h2 className="font-semibold text-foreground text-sm">معلومات الحساب الحالي</h2>
+                <p className="text-xs text-muted-foreground">بيانات المستخدم المسجّل دخوله حالياً</p>
+              </div>
+            </div>
+            <div className="px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+              {/* Avatar */}
+              <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary font-bold text-2xl shrink-0 shadow-sm">
+                {currentUser.username.charAt(0).toUpperCase()}
+              </div>
+              {/* Info */}
+              <div className="flex-1 space-y-2">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-lg font-bold text-foreground">{currentUser.username}</span>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 border border-emerald-200 dark:border-emerald-800">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    متصل الآن
+                  </span>
+                </div>
+                {/* Roles */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Shield className="size-3.5 text-muted-foreground shrink-0" />
+                  {currentUser.roles.length > 0 ? (
+                    currentUser.roles.map((role) => (
+                      <span
+                        key={role._id}
+                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium border ${
+                          roleColorMap[role.name] ??
+                          "text-violet-600 bg-violet-50 dark:bg-violet-950/20 border-violet-200"
+                        }`}
+                      >
+                        <Shield className="size-3" />
+                        {role.name}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-xs text-muted-foreground italic">لا توجد صلاحيات</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Change Password Card */}
         <div className="lg:col-span-2 bg-white dark:bg-card border border-border rounded-2xl shadow-sm overflow-hidden">
           <div className="flex items-center gap-3 px-6 py-4 border-b border-border">

@@ -6,7 +6,8 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // المسارات التي لا تتطلب تسجيل دخول
-  const isPublicPath = pathname.startsWith("/login") || pathname.startsWith("/register");
+  const isPublicPath =
+    pathname.startsWith("/login") || pathname.startsWith("/register");
 
   // إذا كان يملك توكن وحاول الدخول للصفحة الرئيسية أو صفحات تسجيل الدخول، حوله للداشبورد
   if (token && (isPublicPath || pathname === "/")) {

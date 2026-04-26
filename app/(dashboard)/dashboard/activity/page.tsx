@@ -22,8 +22,9 @@ import LoadingState from "@/components/shared/Loading";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Modal } from "@/components/shared/Modal";
+import { withRoles } from "@/components/shared/withRoles";
 
-const ActivityPage = () => {
+function ActivityPage() {
   const { useGetAllActivities, useClearActivities } = useActivity();
   const { data: activities, isLoading, isRefetching } = useGetAllActivities();
   const clearMutation = useClearActivities();
@@ -243,6 +244,6 @@ const ActivityPage = () => {
       </Modal>
     </div>
   );
-};
+}
 
-export default ActivityPage;
+export default withRoles("activity")(ActivityPage);
