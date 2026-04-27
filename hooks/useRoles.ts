@@ -6,56 +6,55 @@ import { CreateRoleInput, UpdateRoleInput } from "@/types/role";
 
 const ROLES_KEY = ["roles"];
 
-export function useRoles() {
+export const useGetAllRoles = () =>
+  useQuery({
+    queryKey: ROLES_KEY,
+    queryFn: RoleService.getAll,
+  });
+
+export const useCreateRole = () => {
   const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data: CreateRoleInput) => RoleService.create(data),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: ROLES_KEY });
+      toast.success("تم إنشاء الرول بنجاح");
+      ActivityService.create(`تم إضافة صلاحية جديدة: ${data.name}`).catch(console.error);
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.error || "فشل إنشاء الرول");
+    },
+  });
+};
 
-  const useGetAllRoles = () =>
-    useQuery({
-      queryKey: ROLES_KEY,
-      queryFn: RoleService.getAll,
-    });
+export const useUpdateRole = () => {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: UpdateRoleInput }) =>
+      RoleService.update(id, data),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: ROLES_KEY });
+      toast.success("تم تحديث الرول بنجاح");
+      ActivityService.create(`تم تحديث اسم صلاحية إلى: ${data.name}`).catch(console.error);
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.error || "فشل تحديث الرول");
+    },
+  });
+};
 
-  const useCreateRole = () =>
-    useMutation({
-      mutationFn: (data: CreateRoleInput) => RoleService.create(data),
-      onSuccess: (data) => {
-        qc.invalidateQueries({ queryKey: ROLES_KEY });
-        toast.success("تم إنشاء الرول بنجاح");
-        ActivityService.create(`تم إضافة صلاحية جديدة: ${data.name}`).catch(console.error);
-      },
-      onError: (err: any) => {
-        toast.error(err?.response?.data?.error || "فشل إنشاء الرول");
-      },
-    });
-
-  const useUpdateRole = () =>
-    useMutation({
-      mutationFn: ({ id, data }: { id: string; data: UpdateRoleInput }) =>
-        RoleService.update(id, data),
-      onSuccess: (data) => {
-        qc.invalidateQueries({ queryKey: ROLES_KEY });
-        toast.success("تم تحديث الرول بنجاح");
-        ActivityService.create(`تم تحديث اسم صلاحية إلى: ${data.name}`).catch(console.error);
-      },
-      onError: (err: any) => {
-        toast.error(err?.response?.data?.error || "فشل تحديث الرول");
-      },
-    });
-
-  const useDeleteRole = () =>
-    useMutation({
-      mutationFn: (id: string) => RoleService.delete(id),
-      onSuccess: () => {
-        qc.invalidateQueries({ queryKey: ROLES_KEY });
-        // also refresh users since their roles may have changed
-        qc.invalidateQueries({ queryKey: ["users"] });
-        toast.success("تم حذف الرول وتحديث المستخدمين");
-        ActivityService.create(`تم حذف صلاحية من النظام`).catch(console.error);
-      },
-      onError: (err: any) => {
-        toast.error(err?.response?.data?.error || "فشل حذف الرول");
-      },
-    });
-
-  return { useGetAllRoles, useCreateRole, useUpdateRole, useDeleteRole };
-}
+export const useDeleteRole = () => {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => RoleService.delete(id),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ROLES_KEY });
+      qc.invalidateQueries({ queryKey: ["users"] });
+      toast.success("تم حذف الرول وتحديث المستخدمين");
+      ActivityService.create(`تم حذف صلاحية من النظام`).catch(console.error);
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.error || "فشل حذف الرول");
+    },
+  });
+};

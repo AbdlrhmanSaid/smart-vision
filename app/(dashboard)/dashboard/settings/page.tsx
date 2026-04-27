@@ -1,17 +1,38 @@
 "use client";
 
 import { useState } from "react";
-import { useUsers } from "@/hooks/useUsers";
+import { useChangePassword } from "@/hooks/useUsers";
 import { Button } from "@/components/ui/button";
-import { Eye, EyeOff, Lock, ShieldCheck, Loader2, KeyRound, User, Shield } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Lock,
+  ShieldCheck,
+  Loader2,
+  KeyRound,
+  User,
+  Shield,
+} from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
 
 function InputField({
-  id, label, value, onChange, show, onToggle, placeholder, disabled,
+  id,
+  label,
+  value,
+  onChange,
+  show,
+  onToggle,
+  placeholder,
+  disabled,
 }: {
-  id: string; label: string; value: string;
-  onChange: (v: string) => void; show: boolean;
-  onToggle: () => void; placeholder: string; disabled?: boolean;
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  show: boolean;
+  onToggle: () => void;
+  placeholder: string;
+  disabled?: boolean;
 }) {
   return (
     <div className="space-y-1.5">
@@ -44,14 +65,14 @@ function InputField({
 }
 
 const roleColorMap: Record<string, string> = {
-  super_admin: "text-red-600 bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800",
+  super_admin:
+    "text-red-600 bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800",
   admin: "text-primary bg-primary/10 border-primary/20",
   user: "text-muted-foreground bg-muted border-border",
 };
 
 export default function SettingsPage() {
   const currentUser = useAuthStore((state) => state.user);
-  const { useChangePassword } = useUsers();
   const changePasswordMutation = useChangePassword();
 
   const [form, setForm] = useState({
@@ -87,7 +108,7 @@ export default function SettingsPage() {
         onSuccess: () => {
           setForm({ oldPassword: "", newPassword: "", confirmPassword: "" });
         },
-      }
+      },
     );
   };
 
@@ -103,8 +124,17 @@ export default function SettingsPage() {
     return s;
   })();
 
-  const strengthLabel = ["", "ضعيفة", "مقبولة", "جيدة", "قوية", "ممتازة"][strength];
-  const strengthColor = ["", "bg-red-500", "bg-orange-400", "bg-yellow-400", "bg-emerald-400", "bg-emerald-500"][strength];
+  const strengthLabel = ["", "ضعيفة", "مقبولة", "جيدة", "قوية", "ممتازة"][
+    strength
+  ];
+  const strengthColor = [
+    "",
+    "bg-red-500",
+    "bg-orange-400",
+    "bg-yellow-400",
+    "bg-emerald-400",
+    "bg-emerald-500",
+  ][strength];
 
   return (
     <div className="space-y-6 pb-10" dir="rtl">
@@ -130,8 +160,12 @@ export default function SettingsPage() {
                 <User className="size-4 text-primary" />
               </div>
               <div>
-                <h2 className="font-semibold text-foreground text-sm">معلومات الحساب الحالي</h2>
-                <p className="text-xs text-muted-foreground">بيانات المستخدم المسجّل دخوله حالياً</p>
+                <h2 className="font-semibold text-foreground text-sm">
+                  معلومات الحساب الحالي
+                </h2>
+                <p className="text-xs text-muted-foreground">
+                  بيانات المستخدم المسجّل دخوله حالياً
+                </p>
               </div>
             </div>
             <div className="px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-5">
@@ -142,7 +176,9 @@ export default function SettingsPage() {
               {/* Info */}
               <div className="flex-1 space-y-2">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-lg font-bold text-foreground">{currentUser.username}</span>
+                  <span className="text-lg font-bold text-foreground">
+                    {currentUser.username}
+                  </span>
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 border border-emerald-200 dark:border-emerald-800">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     متصل الآن
@@ -165,7 +201,9 @@ export default function SettingsPage() {
                       </span>
                     ))
                   ) : (
-                    <span className="text-xs text-muted-foreground italic">لا توجد صلاحيات</span>
+                    <span className="text-xs text-muted-foreground italic">
+                      لا توجد صلاحيات
+                    </span>
                   )}
                 </div>
               </div>
@@ -180,8 +218,12 @@ export default function SettingsPage() {
               <KeyRound className="size-4 text-primary" />
             </div>
             <div>
-              <h2 className="font-semibold text-foreground text-sm">تغيير كلمة المرور</h2>
-              <p className="text-xs text-muted-foreground">نوصي باستخدام كلمة مرور قوية وفريدة</p>
+              <h2 className="font-semibold text-foreground text-sm">
+                تغيير كلمة المرور
+              </h2>
+              <p className="text-xs text-muted-foreground">
+                نوصي باستخدام كلمة مرور قوية وفريدة
+              </p>
             </div>
           </div>
 
@@ -213,11 +255,19 @@ export default function SettingsPage() {
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs">
                   <span className="text-muted-foreground">قوة كلمة المرور</span>
-                  <span className={`font-medium ${
-                    strength <= 1 ? "text-red-500" :
-                    strength <= 2 ? "text-orange-400" :
-                    strength <= 3 ? "text-yellow-500" : "text-emerald-500"
-                  }`}>{strengthLabel}</span>
+                  <span
+                    className={`font-medium ${
+                      strength <= 1
+                        ? "text-red-500"
+                        : strength <= 2
+                          ? "text-orange-400"
+                          : strength <= 3
+                            ? "text-yellow-500"
+                            : "text-emerald-500"
+                    }`}
+                  >
+                    {strengthLabel}
+                  </span>
                 </div>
                 <div className="flex gap-1">
                   {[1, 2, 3, 4, 5].map((i) => (
@@ -245,30 +295,49 @@ export default function SettingsPage() {
 
             {/* Match indicator */}
             {form.confirmPassword && (
-              <p className={`text-xs font-medium ${
-                form.newPassword === form.confirmPassword ? "text-emerald-500" : "text-red-500"
-              }`}>
-                {form.newPassword === form.confirmPassword ? "✓ كلمتا المرور متطابقتان" : "✗ كلمتا المرور غير متطابقتين"}
+              <p
+                className={`text-xs font-medium ${
+                  form.newPassword === form.confirmPassword
+                    ? "text-emerald-500"
+                    : "text-red-500"
+                }`}
+              >
+                {form.newPassword === form.confirmPassword
+                  ? "✓ كلمتا المرور متطابقتان"
+                  : "✗ كلمتا المرور غير متطابقتين"}
               </p>
             )}
 
             {/* Error */}
             {error && (
               <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800">
-                <span className="text-sm text-red-600 dark:text-red-400">{error}</span>
+                <span className="text-sm text-red-600 dark:text-red-400">
+                  {error}
+                </span>
               </div>
             )}
 
             <div className="pt-2">
               <Button
                 type="submit"
-                disabled={changePasswordMutation.isPending || !form.oldPassword || !form.newPassword || !form.confirmPassword}
+                disabled={
+                  changePasswordMutation.isPending ||
+                  !form.oldPassword ||
+                  !form.newPassword ||
+                  !form.confirmPassword
+                }
                 className="w-full sm:w-auto px-8 shadow-lg shadow-primary/20 gap-2"
               >
                 {changePasswordMutation.isPending ? (
-                  <><Loader2 className="size-4 animate-spin" />جاري الحفظ...</>
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    جاري الحفظ...
+                  </>
                 ) : (
-                  <><Lock className="size-4" />تحديث كلمة المرور</>
+                  <>
+                    <Lock className="size-4" />
+                    تحديث كلمة المرور
+                  </>
                 )}
               </Button>
             </div>
@@ -279,7 +348,9 @@ export default function SettingsPage() {
         <div className="bg-white dark:bg-card border border-border rounded-2xl shadow-sm p-6 h-fit">
           <div className="flex items-center gap-2 mb-4">
             <ShieldCheck className="size-5 text-primary" />
-            <h3 className="font-semibold text-foreground text-sm">نصائح الأمان</h3>
+            <h3 className="font-semibold text-foreground text-sm">
+              نصائح الأمان
+            </h3>
           </div>
           <ul className="space-y-3 text-sm text-muted-foreground">
             {[

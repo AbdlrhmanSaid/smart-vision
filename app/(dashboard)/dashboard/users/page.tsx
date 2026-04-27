@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useUsers } from "@/hooks/useUsers";
-import { useRoles } from "@/hooks/useRoles";
 import { Modal } from "@/components/shared/Modal";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +22,13 @@ import { deleteCookie } from "cookies-next";
 import LoadingState from "@/components/shared/Loading";
 import { withRoles } from "@/components/shared/withRoles";
 import { useIsViewOnly } from "@/hooks/useIsViewOnly";
+import {
+  useGetAllUsers,
+  useCreateUser,
+  useUpdateUser,
+  useDeleteUser,
+} from "@/hooks/useUsers";
+import { useGetAllRoles } from "@/hooks/useRoles";
 
 function RoleBadge({ role }: { role: { _id: string; name: string } }) {
   const colorMap: Record<string, string> = {
@@ -99,10 +104,6 @@ function RolePicker({
 }
 
 function UsersPage() {
-  const { useGetAllUsers, useCreateUser, useUpdateUser, useDeleteUser } =
-    useUsers();
-  const { useGetAllRoles } = useRoles();
-
   const { data: users, isLoading } = useGetAllUsers();
   const { data: allRoles = [] } = useGetAllRoles();
 

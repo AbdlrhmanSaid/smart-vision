@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useProducts } from "@/hooks/useProducts";
 import { Button } from "@/components/ui/button";
 import {
   Plus,
@@ -19,14 +18,14 @@ import { Modal } from "@/components/shared/Modal";
 import LoadingState from "@/components/shared/Loading";
 import { withRoles } from "@/components/shared/withRoles";
 import { useIsViewOnly } from "@/hooks/useIsViewOnly";
+import {
+  useGetAllProducts,
+  useCreateProduct,
+  useUpdateProduct,
+  useDeleteProduct,
+} from "@/hooks/useProducts";
 
 function ProductsPage() {
-  const {
-    useGetAllProducts,
-    useCreateProduct,
-    useUpdateProduct,
-    useDeleteProduct,
-  } = useProducts();
   const {
     data: products,
     isLoading,

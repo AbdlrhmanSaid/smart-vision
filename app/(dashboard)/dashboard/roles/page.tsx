@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRoles } from "@/hooks/useRoles";
 import { Modal } from "@/components/shared/Modal";
 import { Button } from "@/components/ui/button";
 import { Plus, Trash2, Edit, Shield, Loader2, Tag, Search } from "lucide-react";
@@ -9,6 +8,12 @@ import { Role } from "@/types/role";
 import LoadingState from "@/components/shared/Loading";
 import { withRoles } from "@/components/shared/withRoles";
 import { useIsViewOnly } from "@/hooks/useIsViewOnly";
+import {
+  useGetAllRoles,
+  useCreateRole,
+  useUpdateRole,
+  useDeleteRole,
+} from "@/hooks/useRoles";
 
 // Color cycling for role badges
 const colors = [
@@ -25,9 +30,6 @@ function getRoleColor(index: number) {
 }
 
 function RolesPage() {
-  const { useGetAllRoles, useCreateRole, useUpdateRole, useDeleteRole } =
-    useRoles();
-
   const { data: roles, isLoading } = useGetAllRoles();
   const createMutation = useCreateRole();
   const updateMutation = useUpdateRole();
@@ -235,7 +237,11 @@ function RolesPage() {
               : "ابدأ بإضافة أول صلاحية"}
           </p>
           {!searchTerm && (
-            <Button onClick={openCreate} disabled={isViewOnly} className="gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+            <Button
+              onClick={openCreate}
+              disabled={isViewOnly}
+              className="gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               <Plus className="size-4" />
               إضافة صلاحية
             </Button>

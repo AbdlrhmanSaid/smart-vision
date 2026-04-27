@@ -1,6 +1,6 @@
 "use client";
 
-import { useActivity } from "@/hooks/useActivity";
+import { useGetAllActivities, useClearActivities } from "@/hooks/useActivity";
 import {
   Users,
   Package,
@@ -25,8 +25,43 @@ import { Modal } from "@/components/shared/Modal";
 import { withRoles } from "@/components/shared/withRoles";
 import { useIsViewOnly } from "@/hooks/useIsViewOnly";
 
+export const getActivityIcon = (description: string, isAI: boolean) => {
+  if (isAI) return <Cpu className="size-4 text-blue-500" />;
+
+  const desc = description.toLowerCase();
+  if (desc.includes("دخول") || desc.includes("login"))
+    return <LogIn className="size-4 text-emerald-500" />;
+  if (desc.includes("خروج") || desc.includes("logout"))
+    return <LogOut className="size-4 text-amber-500" />;
+  if (desc.includes("منتج") || desc.includes("product")) {
+    if (desc.includes("إضافة") || desc.includes("add"))
+      return <PlusCircle className="size-4 text-primary" />;
+    if (desc.includes("حذف") || desc.includes("delete") || desc.includes("مسح"))
+      return <Trash2 className="size-4 text-red-500" />;
+    return <Package className="size-4 text-primary" />;
+  }
+  if (desc.includes("صلاحية") || desc.includes("role"))
+    return <ShieldCheck className="size-4 text-violet-500" />;
+  if (desc.includes("مستخدم") || desc.includes("user"))
+    return <Users className="size-4 text-primary" />;
+  if (desc.includes("إعدادات") || desc.includes("settings"))
+    return <Settings className="size-4 text-slate-500" />;
+
+  return <Clock className="size-4 text-muted-foreground" />;
+};
+
+export const getStatusColor = (description: string, isAI: boolean) => {
+  if (isAI) return "bg-blue-500";
+  const desc = description.toLowerCase();
+  if (desc.includes("حذف") || desc.includes("delete") || desc.includes("مسح"))
+    return "bg-red-500";
+  if (desc.includes("إضافة") || desc.includes("add") || desc.includes("دخول"))
+    return "bg-emerald-500";
+  if (desc.includes("تعديل") || desc.includes("update")) return "bg-amber-500";
+  return "bg-primary";
+};
+
 function ActivityPage() {
-  const { useGetAllActivities, useClearActivities } = useActivity();
   const { data: activities, isLoading, isRefetching } = useGetAllActivities();
   const clearMutation = useClearActivities();
   const isViewOnly = useIsViewOnly();
@@ -35,47 +70,6 @@ function ActivityPage() {
   if (isLoading) {
     return <LoadingState icon={Bell} />;
   }
-
-  const getActivityIcon = (description: string, isAI: boolean) => {
-    if (isAI) return <Cpu className="size-4 text-blue-500" />;
-
-    const desc = description.toLowerCase();
-    if (desc.includes("دخول") || desc.includes("login"))
-      return <LogIn className="size-4 text-emerald-500" />;
-    if (desc.includes("خروج") || desc.includes("logout"))
-      return <LogOut className="size-4 text-amber-500" />;
-    if (desc.includes("منتج") || desc.includes("product")) {
-      if (desc.includes("إضافة") || desc.includes("add"))
-        return <PlusCircle className="size-4 text-primary" />;
-      if (
-        desc.includes("حذف") ||
-        desc.includes("delete") ||
-        desc.includes("مسح")
-      )
-        return <Trash2 className="size-4 text-red-500" />;
-      return <Package className="size-4 text-primary" />;
-    }
-    if (desc.includes("صلاحية") || desc.includes("role"))
-      return <ShieldCheck className="size-4 text-violet-500" />;
-    if (desc.includes("مستخدم") || desc.includes("user"))
-      return <Users className="size-4 text-primary" />;
-    if (desc.includes("إعدادات") || desc.includes("settings"))
-      return <Settings className="size-4 text-slate-500" />;
-
-    return <Clock className="size-4 text-muted-foreground" />;
-  };
-
-  const getStatusColor = (description: string, isAI: boolean) => {
-    if (isAI) return "bg-blue-500";
-    const desc = description.toLowerCase();
-    if (desc.includes("حذف") || desc.includes("delete") || desc.includes("مسح"))
-      return "bg-red-500";
-    if (desc.includes("إضافة") || desc.includes("add") || desc.includes("دخول"))
-      return "bg-emerald-500";
-    if (desc.includes("تعديل") || desc.includes("update"))
-      return "bg-amber-500";
-    return "bg-primary";
-  };
 
   return (
     <div className="space-y-6" dir="rtl">
@@ -100,7 +94,9 @@ function ActivityPage() {
               size="sm"
               onClick={() => setIsClearModalOpen(true)}
               disabled={isViewOnly}
-              title={isViewOnly ? "وضع العرض فقط — لا يمكن مسح السجل" : undefined}
+              title={
+                isViewOnly ? "وضع العرض فقط — لا يمكن مسح السجل" : undefined
+              }
               className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 border-red-200 dark:border-red-800 gap-2 h-9 rounded-xl disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <Trash2 className="size-4" />
