@@ -1,5 +1,7 @@
 import { colorMap } from "./dashboard.data";
 import { Users, Cog, Package, Bot } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export function StatsGrid({ users, products, roles }: any) {
   const stats = [
@@ -31,6 +33,7 @@ export function StatsGrid({ users, products, roles }: any) {
       icon: Bot,
       color: "green",
       trend: "up",
+      to: "/dashboard/ai",
     },
   ] as const;
   return (
@@ -55,6 +58,11 @@ export function StatsGrid({ users, products, roles }: any) {
             <p className="text-sm font-medium text-foreground mb-0.5">
               {stat.name}
             </p>
+            {'to' in stat && stat.to && (
+              <Link href={stat.to} className="w-full">
+                <Button>عرض التفاصيل</Button>
+              </Link>
+            )}
           </div>
         );
       })}
