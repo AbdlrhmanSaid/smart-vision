@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Plus,
@@ -224,10 +225,13 @@ function ProductsPage() {
               {/* Product Image */}
               <div className="relative h-48 bg-muted/40 flex items-center justify-center overflow-hidden rounded-t-2xl">
                 {product.image ? (
-                  <img
+                  <Image
+                    width={500}
+                    height={500}
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
                   <div className="flex flex-col items-center gap-2">

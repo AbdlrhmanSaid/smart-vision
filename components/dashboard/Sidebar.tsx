@@ -58,10 +58,11 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               <Image
                 src={logo}
                 alt="logo"
-                width={60}
-                height={60}
+                width={36}
+                height={36}
                 priority
                 className="object-contain"
+                style={{ width: "auto", height: "auto" }}
               />
             </div>
             <div className="flex flex-col">

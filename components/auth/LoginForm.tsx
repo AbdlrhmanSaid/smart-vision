@@ -60,10 +60,11 @@ export default function LoginForm() {
           <Image
             src={logo}
             alt="logo"
-            width={60}
-            height={60}
+            width={48}
+            height={48}
             priority
             className="object-contain"
+            style={{ width: "auto" }}
           />
         </div>
         <h1 className="text-3xl font-bold text-foreground tracking-tight mb-2">
