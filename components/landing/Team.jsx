@@ -28,6 +28,7 @@ const Team = () => {
                   src={member.img}
                   alt={member.name}
                   quality={70}
+                  style={{ height: "auto" }}
                   className="object-cover w-full h-full"
                 />
               </div>

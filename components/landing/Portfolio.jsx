@@ -43,6 +43,7 @@ const Portfolio = () => {
                   src={item.img}
                   alt={item.title}
                   quality={70}
+                  style={{ height: "auto" }}
                   className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                 />
               </div>

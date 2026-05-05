@@ -18,7 +18,7 @@ const Contact = () => {
           </p>
           <div className="flex flex-col gap-6">
             <div className="flex items-start gap-[18px]">
-              <span className="w-[52px] h-[52px] rounded-[18px] bg-[#00e5ff]/12 text-[#00e5ff] grid place-items-center text-[1.1rem] shrink-0 shadow-lg shadow-[#00e5ff]/10">
+              <span className="w-[52px] h-[52px] rounded-[18px] bg-[#00e5ff]/10 text-[#00e5ff] grid place-items-center text-[1.1rem] shrink-0 shadow-lg shadow-[#00e5ff]/10">
                 <i className="fas fa-envelope"></i>
               </span>
               <div>
@@ -29,7 +29,7 @@ const Contact = () => {
               </div>
             </div>
             <div className="flex items-start gap-[18px]">
-              <span className="w-[52px] h-[52px] rounded-[18px] bg-[#00e5ff]/12 text-[#00e5ff] grid place-items-center text-[1.1rem] shrink-0 shadow-lg shadow-[#00e5ff]/10">
+              <span className="w-[52px] h-[52px] rounded-[18px] bg-[#00e5ff]/10 text-[#00e5ff] grid place-items-center text-[1.1rem] shrink-0 shadow-lg shadow-[#00e5ff]/10">
                 <i className="fas fa-map-marker-alt"></i>
               </span>
               <div>
@@ -41,7 +41,7 @@ const Contact = () => {
             </div>
           </div>
         </div>
-        <div className="bg-[#080e1e]/96 border border-white/10 rounded-[32px] p-10 shadow-2xl backdrop-blur-sm">
+        <div className="bg-[#080e1e]/95 border border-white/10 rounded-[32px] p-10 shadow-2xl backdrop-blur-sm">
           <form
             onSubmit={(e) => e.preventDefault()}
             className="flex flex-col gap-5"
