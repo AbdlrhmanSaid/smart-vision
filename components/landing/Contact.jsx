@@ -77,7 +77,7 @@ const Contact = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-[#00e5ff] to-[#3fc9ff] border-none rounded-[24px] text-[#08101b] p-4 font-bold cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_rgba(0,229,255,0.14)] active:scale-95"
+              className="w-full bg-linear-to-r from-[#00e5ff] to-[#3fc9ff] border-none rounded-[24px] text-[#08101b] p-4 font-bold cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_rgba(0,229,255,0.14)] active:scale-95"
             >
               Send Signal
             </button>

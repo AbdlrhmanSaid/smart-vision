@@ -226,11 +226,10 @@ function ProductsPage() {
               <div className="relative h-48 bg-muted/40 flex items-center justify-center overflow-hidden rounded-t-2xl">
                 {product.image ? (
                   <Image
-                    width={500}
-                    height={500}
                     src={product.image}
                     alt={product.name}
                     fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                     className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (

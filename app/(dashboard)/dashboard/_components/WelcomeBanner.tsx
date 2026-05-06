@@ -1,6 +1,6 @@
 export function WelcomeBanner() {
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-primary p-6 text-primary-foreground shadow-lg shadow-primary/20">
+    <div className="relative overflow-hidden rounded-2xl bg-primary p-4 sm:p-6 text-primary-foreground shadow-lg shadow-primary/20">
       <div className="absolute -top-10 -left-10 size-40 rounded-full bg-white/10 blur-2xl" />
       <div className="absolute -bottom-10 left-20 size-32 rounded-full bg-white/10 blur-2xl" />
       <div className="relative">

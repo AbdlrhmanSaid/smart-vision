@@ -15,12 +15,13 @@ import {
   Settings,
   ShieldCheck,
   AlertCircle,
+  Search,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
 import LoadingState from "@/components/shared/Loading";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal } from "@/components/shared/Modal";
 import { withRoles } from "@/components/shared/withRoles";
 import { useIsViewOnly } from "@/hooks/useIsViewOnly";
@@ -66,8 +67,19 @@ function ActivityPage() {
   const clearMutation = useClearActivities();
   const isViewOnly = useIsViewOnly();
   const [isClearModalOpen, setIsClearModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [mounted, setMounted] = useState(false);
 
-  if (isLoading) {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const filteredActivities = activities?.filter((activity: any) =>
+    activity.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (activity.user?.username && activity.user.username.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
+  if (!mounted || isLoading) {
     return <LoadingState icon={Bell} />;
   }
 
@@ -112,6 +124,18 @@ function ActivityPage() {
         </div>
       </div>
 
+      <div className="relative flex items-center w-full max-w-sm">
+        <Search className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
+        <input
+          type="text"
+          placeholder="ابحث في السجل (وصف العملية أو المستخدم)..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full h-10 pr-10 pl-4 text-sm bg-white dark:bg-card border border-border rounded-xl outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary/40 transition-all placeholder:text-muted-foreground shadow-sm"
+          dir="rtl"
+        />
+      </div>
+
       {/* Stats Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white dark:bg-card border border-border rounded-2xl p-5 shadow-sm">
@@ -134,11 +158,10 @@ function ActivityPage() {
         </div>
       </div>
 
-      {/* List */}
       <div className="bg-white dark:bg-card border border-border rounded-2xl shadow-sm overflow-hidden min-h-[400px]">
         <div className="divide-y divide-border">
-          {activities && activities.length > 0 ? (
-            activities.map((activity, index) => (
+          {filteredActivities && filteredActivities.length > 0 ? (
+            filteredActivities.map((activity: any, index: number) => (
               <div
                 key={activity._id}
                 className="group flex items-center gap-4 px-6 py-4 hover:bg-muted/30 transition-all duration-200"
@@ -189,14 +212,15 @@ function ActivityPage() {
           ) : (
             <div className="flex flex-col items-center justify-center py-20 text-center">
               <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-                <Bell className="size-8 text-muted-foreground/30" />
+                <Search className="size-8 text-muted-foreground/30" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-1">
-                لا توجد نشاطات
+                {searchTerm ? "لا توجد نتائج للبحث" : "لا توجد نشاطات"}
               </h3>
               <p className="text-sm text-muted-foreground max-w-xs mx-auto">
-                السجل فارغ حالياً، سيتم عرض كافة التحركات والعمليات هنا فور
-                حدوثها.
+                {searchTerm 
+                  ? `لم نجد أي نشاط يطابق "${searchTerm}"`
+                  : "السجل فارغ حالياً، سيتم عرض كافة التحركات والعمليات هنا فور حدوثها."}
               </p>
             </div>
           )}

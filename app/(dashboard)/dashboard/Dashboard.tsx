@@ -23,9 +23,14 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-7 pb-10" dir="rtl">
+    <div className="space-y-5 sm:space-y-7 pb-10" dir="rtl">
       <WelcomeBanner />
-      <StatsGrid users={users} products={products} roles={roles} />
+      <StatsGrid
+        users={users}
+        products={products}
+        roles={roles}
+        activities={activities}
+      />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <RecentActivity activities={activities} />
         <QuickLinks />

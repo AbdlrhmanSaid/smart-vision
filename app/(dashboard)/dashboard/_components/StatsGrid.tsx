@@ -3,7 +3,7 @@ import { Users, Cog, Package, Bot } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-export function StatsGrid({ users, products, roles }: any) {
+export function StatsGrid({ users, products, roles, activities }: any) {
   const stats = [
     {
       name: "إجمالي المستخدمين",
@@ -29,7 +29,7 @@ export function StatsGrid({ users, products, roles }: any) {
     },
     {
       name: "تفاعل الذكاء الاصطناعي",
-      value: 0,
+      value: activities?.filter((a: any) => a.isAI)?.length,
       icon: Bot,
       color: "green",
       trend: "up",
@@ -43,7 +43,7 @@ export function StatsGrid({ users, products, roles }: any) {
         return (
           <div
             key={stat.name}
-            className="bg-white dark:bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200"
+            className="bg-white dark:bg-card border border-border rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-start justify-between mb-4">
               <div
@@ -58,7 +58,7 @@ export function StatsGrid({ users, products, roles }: any) {
             <p className="text-sm font-medium text-foreground mb-0.5">
               {stat.name}
             </p>
-            {'to' in stat && stat.to && (
+            {"to" in stat && stat.to && (
               <Link href={stat.to} className="w-full">
                 <Button>عرض التفاصيل</Button>
               </Link>

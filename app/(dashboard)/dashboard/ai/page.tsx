@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   Card,
@@ -193,19 +195,37 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export default function TrainingDashboard() {
-  return (
-    <div className="p-8 space-y-8 bg-slate-50 min-h-screen">
-      <h1 className="text-3xl font-bold tracking-tight">AI Training Report </h1>
+  const [mounted, setMounted] = useState(false);
 
-      <div className="grid gap-4 md:grid-cols-2" dir="ltr">
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="p-4 sm:p-6 lg:p-8 space-y-8 bg-slate-50 min-h-screen">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">AI Training Report </h1>
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card className="h-[400px] animate-pulse bg-muted/20" />
+          <Card className="h-[400px] animate-pulse bg-muted/20" />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-4 sm:p-6 lg:p-8 space-y-8 bg-slate-50 min-h-screen">
+      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">AI Training Report </h1>
+
+      <div className="grid gap-6 md:grid-cols-2" dir="ltr">
         <Card>
           <CardHeader className="text-right">
             {" "}
             <CardTitle>Loss Convergence</CardTitle>
             <CardDescription>Training vs Validation</CardDescription>
           </CardHeader>
-          <CardContent className="h-[300px]">
-            <ChartContainer config={chartConfig}>
+          <CardContent className="h-[250px] sm:h-[300px] w-full">
+            <ChartContainer config={chartConfig} className="h-full w-full">
               <LineChart
                 data={trainingData}
                 margin={{ left: 12, right: 12, top: 20 }}
@@ -252,8 +272,8 @@ export default function TrainingDashboard() {
             <CardTitle>Performance Metrics</CardTitle>
             <CardDescription>mAP50 over Epochs</CardDescription>
           </CardHeader>
-          <CardContent className="h-[300px]">
-            <ChartContainer config={chartConfig}>
+          <CardContent className="h-[250px] sm:h-[300px] w-full">
+            <ChartContainer config={chartConfig} className="h-full w-full">
               <LineChart
                 data={trainingData}
                 margin={{ left: 12, right: 12, top: 20 }}
@@ -371,38 +391,40 @@ export default function TrainingDashboard() {
           <CardTitle>Summary Table</CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="text-center">Epoch</TableHead>
-                <TableHead className="text-center">Train Loss</TableHead>
-                <TableHead className="text-center">Val Loss</TableHead>
-                <TableHead className="text-center">mAP50</TableHead>
-                <TableHead className="text-center">Precision</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {trainingData.map((row) => (
-                <TableRow key={row.epoch}>
-                  <TableCell className="text-center font-medium">
-                    {row.epoch}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {row.train_loss.toFixed(4)}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {row.val_loss.toFixed(4)}
-                  </TableCell>
-                  <TableCell className="text-center text-blue-600 font-semibold">
-                    {(row.mAP50 * 100).toFixed(1)}%
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {(row.precision * 100).toFixed(1)}%
-                  </TableCell>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-center">Epoch</TableHead>
+                  <TableHead className="text-center">Train Loss</TableHead>
+                  <TableHead className="text-center">Val Loss</TableHead>
+                  <TableHead className="text-center">mAP50</TableHead>
+                  <TableHead className="text-center">Precision</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {trainingData.map((row) => (
+                  <TableRow key={row.epoch}>
+                    <TableCell className="text-center font-medium">
+                      {row.epoch}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {row.train_loss.toFixed(4)}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {row.val_loss.toFixed(4)}
+                    </TableCell>
+                    <TableCell className="text-center text-blue-600 font-semibold">
+                      {(row.mAP50 * 100).toFixed(1)}%
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {(row.precision * 100).toFixed(1)}%
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>
