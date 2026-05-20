@@ -10,6 +10,8 @@ import {
   ChevronRight,
   X,
   Shield,
+  Bot,
+  Layers,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -19,6 +21,7 @@ const menuItems = [
   { title: "لوحة التحكم", href: "/dashboard", icon: LayoutDashboard },
   { title: "المنتجات", href: "/dashboard/products", icon: Package },
   { title: "المستخدمين", href: "/dashboard/users", icon: Users },
+  { title: "النظام المدمج", href: "/dashboard/robotarm", icon: Bot },
   { title: "الصلاحيات", href: "/dashboard/roles", icon: Shield },
   { title: "الإعدادات", href: "/dashboard/settings", icon: Settings },
 ];

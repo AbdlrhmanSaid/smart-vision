@@ -10,6 +10,9 @@ import { WelcomeBanner } from "./_components/WelcomeBanner";
 import { StatsGrid } from "./_components/StatsGrid";
 import { RecentActivity } from "./_components/RecentActivity";
 import { QuickLinks } from "./_components/QuickLinks";
+import { SystemActivityChart } from "./_components/charts/SystemActivityChart";
+import { RolesDistributionChart } from "./_components/charts/RolesDistributionChart";
+import { SystemOverview } from "./_components/SystemOverview";
 
 export default function DashboardPage() {
   const { data: products, isLoading: productsLoading } = useGetAllProducts();
@@ -32,8 +35,23 @@ export default function DashboardPage() {
         activities={activities}
       />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <RecentActivity activities={activities} />
-        <QuickLinks />
+        <div className="lg:col-span-3">
+          <SystemOverview />
+        </div>
+        <div className="lg:col-span-2">
+          <SystemActivityChart activities={activities || []} />
+        </div>
+        <div>
+          <RolesDistributionChart users={users || []} />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="lg:col-span-2">
+          <RecentActivity activities={activities} />
+        </div>
+        <div>
+          <QuickLinks />
+        </div>
       </div>
     </div>
   );
