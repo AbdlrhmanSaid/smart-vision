@@ -19,7 +19,7 @@ export const RobotArmService = {
     return response.data;
   },
 
-  sendAction: async (action: string): Promise<RobotArmActionResponse> => {
+  sendAction: async (action: string | string[]): Promise<RobotArmActionResponse> => {
     const response = await axiosInstance.post("/robotarm", { action });
     return response.data;
   },

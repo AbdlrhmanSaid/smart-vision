@@ -44,7 +44,12 @@ export default function RobotArmPage() {
 
   const handleAction = (action: string) => {
     if (isBusy) return;
-    sendAction(action);
+    
+    const actionPayload = action.startsWith("to-")
+      ? ["staticPoint", action]
+      : [action, "staticPoint"];
+      
+    sendAction(actionPayload);
   };
 
   const getSectionProduct = (sectionName: string) => {
