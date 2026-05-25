@@ -46,8 +46,8 @@ export default function RobotArmPage() {
     if (isBusy) return;
     
     const actionPayload = action.startsWith("to-")
-      ? ["staticPoint", action]
-      : [action, "staticPoint"];
+      ? ["from-staticPoint", action]
+      : [`from-${action}`, "to-staticPoint"];
       
     sendAction(actionPayload);
   };
