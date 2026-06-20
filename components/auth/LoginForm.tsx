@@ -64,7 +64,7 @@ export default function LoginForm() {
             height={48}
             priority
             className="object-contain"
-            style={{ width: "auto" }}
+            style={{ width: "auto", height: "auto" }}
           />
         </div>
         <h1 className="text-3xl font-bold text-foreground tracking-tight mb-2">

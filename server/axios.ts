@@ -4,7 +4,7 @@ import axios from "axios";
 function getClientCookie(name: string): string | undefined {
   if (typeof document === "undefined") return undefined;
   const match = document.cookie.match(
-    new RegExp("(?:^|;\\s*)" + name + "=([^;]+)")
+    new RegExp("(?:^|;\\s*)" + name + "=([^;]+)"),
   );
   return match ? decodeURIComponent(match[1]) : undefined;
 }
@@ -12,7 +12,7 @@ function getClientCookie(name: string): string | undefined {
 const axiosInstance = axios.create({
   // Use the local Next.js proxy (/api/*) to avoid CORS issues.
   // next.config.ts rewrites /api/* → NEXT_PUBLIC_API/*
-  baseURL: "/api",
+  baseURL: "https://backend.smart-vision.site/api",
   withCredentials: true,
 });
 

@@ -23,7 +23,7 @@ const Header = ({ isIdeaPage }) => {
     >
       <div className="container mx-auto flex items-center justify-between px-[22px] max-w-[1200px]">
         <a
-          href={isIdeaPage ? "/project#" : "/#hero"}
+          href={isIdeaPage ? "/#hero" : "/#hero"}
           className="text-[1.55rem] font-['Poiret_One'] tracking-wide text-white no-underline whitespace-nowrap transition-transform hover:scale-105"
           onClick={handleLinkClick}
         >
@@ -40,7 +40,6 @@ const Header = ({ isIdeaPage }) => {
               "About",
               "Team",
               isIdeaPage ? "Features" : "Portfolio",
-              "Dashboard",
               "Contact",
             ].map((item) => (
               <li key={item}>
