@@ -56,12 +56,12 @@ const buildDefault = (id: string): PointSequence => ({
 // Grid: A3 A2 A1 / B3 B2 B1 (right → left order)
 // ─────────────────────────────────────────────
 const INITIAL_POINTS: PointConfig[] = [
-  { id: "A1", shelfSection: "stOne", defaultSequence: buildDefault("A1") },
+  { id: "A1", shelfSection: "stThree", defaultSequence: buildDefault("A1") },
   { id: "A2", shelfSection: "stTwo", defaultSequence: buildDefault("A2") },
-  { id: "A3", shelfSection: "stThree", defaultSequence: buildDefault("A3") },
-  { id: "B1", shelfSection: "stFour", defaultSequence: buildDefault("B1") },
+  { id: "A3", shelfSection: "stOne", defaultSequence: buildDefault("A3") },
+  { id: "B1", shelfSection: "stSix", defaultSequence: buildDefault("B1") },
   { id: "B2", shelfSection: "stFive", defaultSequence: buildDefault("B2") },
-  { id: "B3", shelfSection: "stSix", defaultSequence: buildDefault("B3") },
+  { id: "B3", shelfSection: "stFour", defaultSequence: buildDefault("B3") },
 ];
 
 // ─────────────────────────────────────────────
