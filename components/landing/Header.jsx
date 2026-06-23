@@ -95,7 +95,7 @@ const Header = ({ isIdeaPage }) => {
         </div>
       </div>
     </header>
-  );
+  );  
 };
 
 export default Header;
