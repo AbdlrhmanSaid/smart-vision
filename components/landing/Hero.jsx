@@ -12,9 +12,16 @@ const Hero = () => {
           <span className="inline-flex items-center gap-[10px] bg-[#00e5ff]/14 text-[#00e5ff] border border-[#00e5ff]/25 p-[10px_18px] rounded-full text-[0.84rem] tracking-[0.12em]">
             INTELLIGENCE REIMAGINED
           </span>
-          <h1 className="mt-6 text-[clamp(3rem,5vw,5.4rem)] leading-[0.95] tracking-[-0.05em] text-white font-bold">
-            Smart <span className="text-[#00e5ff]">Vision</span>
-          </h1>
+          <h2 className="mt-6 flex items-center justify-center md:justify-start gap-4 text-[clamp(3rem,5vw,5rem)] leading-[0.95] tracking-[-0.05em] text-white font-bold">
+            <img
+              src="/logo-removebg.png"
+              alt="Smart Vision Logo"
+              className="w-[1em] h-[1em] object-contain drop-shadow-[0_0_20px_rgba(0,229,255,0.3)]"
+            />
+            <span>
+              Smart <span className="text-[#00e5ff]">Vision</span>
+            </span>
+          </h2>
           <p className="my-[26px] md:my-[38px] text-[#cbd5e5] text-[1.05rem] leading-[1.8] max-w-[520px] mx-auto md:mx-0">
             Pioneering the future of intelligence. We bridge the gap between
             human perception and computational power.

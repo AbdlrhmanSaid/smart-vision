@@ -1,87 +1,171 @@
 "use client";
-
 import React from "react";
+import { IconMail, IconMapPin, IconUsers, IconSend } from "@tabler/icons-react";
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-[100px] px-0">
-      <div className="container mx-auto px-[22px] max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-        <div className="flex flex-col justify-center">
-          <div className="mb-6">
-            <h2 className="text-[clamp(2.4rem,3vw,3rem)] text-white font-bold">
-              Initiate <span className="text-[#00e5ff]">Contact</span>
-            </h2>
-          </div>
-          <p className="text-[#97aed1] mb-12 leading-[1.8] text-lg">
-            Ready to deploy Smart Vision in your ecosystem? Reach out to our
-            technical team for a demonstration.
+    <section
+      className="py-[100px] px-0 bg-[#040712] relative overflow-hidden"
+      id="contact"
+    >
+      <div className="container mx-auto px-[22px] max-w-[1200px] relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-[clamp(2.4rem,3vw,3rem)] text-white font-bold">
+            Get In Touch
+          </h2>
+          <span className="block w-[72px] h-1 mx-auto mt-[18px] mb-[30px] rounded-full bg-linear-to-r from-[#00e5ff] to-[#5fd6ff]"></span>
+          <p className="max-w-[800px] mx-auto text-[#b6c4db] leading-[1.85] text-lg">
+            Interested in Smart Warehouse Control? We'd love to hear from you.
+            Feel free to contact our team for project inquiries, collaborations,
+            or technical discussions.
           </p>
-          <div className="flex flex-col gap-6">
-            <div className="flex items-start gap-[18px]">
-              <span className="w-[52px] h-[52px] rounded-[18px] bg-[#00e5ff]/10 text-[#00e5ff] grid place-items-center text-[1.1rem] shrink-0 shadow-lg shadow-[#00e5ff]/10">
-                <i className="fas fa-envelope"></i>
-              </span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 mb-20">
+          {/* Contact Information */}
+          <div className="lg:col-span-5 space-y-6">
+            <h3 className="text-2xl text-white font-bold mb-6">
+              Contact Information
+            </h3>
+
+            <div className="bg-[#0c1226]/80 border border-white/10 rounded-2xl p-6 flex items-start gap-5 hover:border-[#00e5ff]/30 transition-colors">
+              <div className="w-12 h-12 rounded-full bg-[#00e5ff]/10 flex items-center justify-center shrink-0 text-[#00e5ff]">
+                <IconMail size={24} />
+              </div>
               <div>
-                <span className="text-[#70ccff] text-[0.78rem] tracking-[0.12em] uppercase mb-1.5 block font-bold">
-                  Inquiries
-                </span>
-                <p className="text-[#c1d1e3] m-0">hello@smartvision.ai</p>
+                <h4 className="text-white font-semibold mb-1">Email</h4>
+                <a
+                  href="mailto:smartvision.team@example.com"
+                  className="text-[#b6c4db] hover:text-[#00e5ff] transition-colors"
+                >
+                  smartvision.team@example.com
+                </a>
               </div>
             </div>
-            <div className="flex items-start gap-[18px]">
-              <span className="w-[52px] h-[52px] rounded-[18px] bg-[#00e5ff]/10 text-[#00e5ff] grid place-items-center text-[1.1rem] shrink-0 shadow-lg shadow-[#00e5ff]/10">
-                <i className="fas fa-map-marker-alt"></i>
-              </span>
+
+            <div className="bg-[#0c1226]/80 border border-white/10 rounded-2xl p-6 flex items-start gap-5 hover:border-[#00e5ff]/30 transition-colors">
+              <div className="w-12 h-12 rounded-full bg-[#00e5ff]/10 flex items-center justify-center shrink-0 text-[#00e5ff]">
+                <IconMapPin size={24} />
+              </div>
               <div>
-                <span className="text-[#70ccff] text-[0.78rem] tracking-[0.12em] uppercase mb-1.5 block font-bold">
-                  Headquarters
-                </span>
-                <p className="text-[#c1d1e3] m-0">Silicon Valley, CA</p>
+                <h4 className="text-white font-semibold mb-1">Location</h4>
+                <p className="text-[#b6c4db]">
+                  Borg El Arab Technological University, Egypt
+                </p>
               </div>
             </div>
+
+            <div className="bg-[#0c1226]/80 border border-white/10 rounded-2xl p-6 flex items-start gap-5 hover:border-[#00e5ff]/30 transition-colors">
+              <div className="w-12 h-12 rounded-full bg-[#00e5ff]/10 flex items-center justify-center shrink-0 text-[#00e5ff]">
+                <IconUsers size={24} />
+              </div>
+              <div>
+                <h4 className="text-white font-semibold mb-1">Team</h4>
+                <p className="text-[#b6c4db]">Smart Vision Team</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="lg:col-span-7 bg-[#0c1226]/90 border border-white/10 rounded-3xl p-8 md:p-10 shadow-xl">
+            <h3 className="text-2xl text-white font-bold mb-8">
+              Send a Message
+            </h3>
+            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-[#b6c4db] mb-2">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full bg-[#040712] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#00e5ff]/50 focus:ring-1 focus:ring-[#00e5ff]/50 transition-all placeholder:text-white/20"
+                    placeholder="John Doe"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-[#b6c4db] mb-2">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    className="w-full bg-[#040712] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#00e5ff]/50 focus:ring-1 focus:ring-[#00e5ff]/50 transition-all placeholder:text-white/20"
+                    placeholder="john@example.com"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[#b6c4db] mb-2">
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-[#040712] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#00e5ff]/50 focus:ring-1 focus:ring-[#00e5ff]/50 transition-all placeholder:text-white/20"
+                  placeholder="How can we help you?"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[#b6c4db] mb-2">
+                  Message
+                </label>
+                <textarea
+                  rows="4"
+                  className="w-full bg-[#040712] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#00e5ff]/50 focus:ring-1 focus:ring-[#00e5ff]/50 transition-all resize-none placeholder:text-white/20"
+                  placeholder="Write your message here..."
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="bg-[#00e5ff] text-[#040712] font-bold py-3 px-8 rounded-xl hover:bg-[#5fd6ff] transition-colors w-full sm:w-auto inline-flex justify-center items-center gap-2"
+              >
+                <span>Send Message</span>
+                <IconSend size={18} />
+              </button>
+            </form>
           </div>
         </div>
-        <div className="bg-[#080e1e]/95 border border-white/10 rounded-[32px] p-10 shadow-2xl backdrop-blur-sm">
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex flex-col gap-5"
-          >
-            <div>
-              <label className="block mb-2.5 text-[#9db5d3] text-[0.85rem] font-bold">
-                Full Name
-              </label>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                className="w-full border border-white/10 bg-[#0a1120]/95 text-white rounded-[18px] p-[18px_20px] text-[0.95rem] outline-none focus:border-[#00e5ff]/50 transition-colors"
-              />
+
+        {/* Project Information */}
+        <div className="bg-linear-to-r from-[#0c1226]/80 to-[#080c18]/80 border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+          {/* Decorative element */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#00e5ff]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
+          <h3 className="text-2xl text-white font-bold mb-8 text-center relative z-10">
+            Project Information
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 relative z-10">
+            <div className="text-center sm:text-left">
+              <p className="text-[#8f9eb8] text-sm mb-1 uppercase tracking-wider font-semibold">
+                Project Name
+              </p>
+              <p className="text-white font-bold text-lg">
+                Smart Warehouse Control
+              </p>
             </div>
-            <div>
-              <label className="block mb-2.5 text-[#9db5d3] text-[0.85rem] font-bold">
-                Professional Email
-              </label>
-              <input
-                type="email"
-                placeholder="name@company.com"
-                className="w-full border border-white/10 bg-[#0a1120]/95 text-white rounded-[18px] p-[18px_20px] text-[0.95rem] outline-none focus:border-[#00e5ff]/50 transition-colors"
-              />
+            <div className="text-center sm:text-left">
+              <p className="text-[#8f9eb8] text-sm mb-1 uppercase tracking-wider font-semibold">
+                Developed By
+              </p>
+              <p className="text-white font-bold text-lg">Smart Vision Team</p>
             </div>
-            <div>
-              <label className="block mb-2.5 text-[#9db5d3] text-[0.85rem] font-bold">
-                Project Scope
-              </label>
-              <textarea
-                placeholder="Tell us about your visual intelligence needs..."
-                className="w-full border border-white/10 bg-[#0a1120]/95 text-white rounded-[18px] p-[18px_20px] text-[0.95rem] outline-none focus:border-[#00e5ff]/50 transition-colors min-h-[150px] resize-none"
-              ></textarea>
+            <div className="text-center sm:text-left">
+              <p className="text-[#8f9eb8] text-sm mb-1 uppercase tracking-wider font-semibold">
+                Team Members
+              </p>
+              <p className="text-white font-bold text-lg">26 IT Students</p>
             </div>
-            <button
-              type="submit"
-              className="w-full bg-linear-to-r from-[#00e5ff] to-[#3fc9ff] border-none rounded-[24px] text-[#08101b] p-4 font-bold cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_rgba(0,229,255,0.14)] active:scale-95"
-            >
-              Send Signal
-            </button>
-          </form>
+            <div className="text-center sm:text-left">
+              <p className="text-[#8f9eb8] text-sm mb-1 uppercase tracking-wider font-semibold">
+                Technologies
+              </p>
+              <p className="text-[#00e5ff] font-medium text-sm md:text-base">
+                AI &bull; Robotics &bull; Embedded Systems &bull; Full Stack
+                Development
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

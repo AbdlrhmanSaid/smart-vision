@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "name": "Ahmed Ali",
+    "role": "Front-End Leader",
+    "department": "Front-End",
+    "isLeader": true,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Leader",
+    "links": {
+      "github": "#",
+      "linkedin": "#",
+      "portfolio": "#"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Sara Mohamed",
+    "role": "Front-End Developer",
+    "department": "Front-End",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Member",
+    "links": {
+      "github": "#",
+      "linkedin": "#",
+      "portfolio": "#"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Omar Hassan",
+    "role": "Back-End Leader",
+    "department": "Back-End",
+    "isLeader": true,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Leader",
+    "links": {
+      "github": "#",
+      "linkedin": "#",
+      "portfolio": "#"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Nour Sayed",
+    "role": "Back-End Developer",
+    "department": "Back-End",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Member",
+    "links": {
+      "github": "#",
+      "linkedin": "#",
+      "portfolio": "#"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Khaled Youssef",
+    "role": "AI Team Leader",
+    "department": "AI & Model Training",
+    "isLeader": true,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Leader",
+    "links": {
+      "github": "#",
+      "linkedin": "#",
+      "portfolio": "#"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Mona Ibrahim",
+    "role": "AI Engineer",
+    "department": "AI & Model Training",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Member",
+    "links": {
+      "github": "#",
+      "linkedin": "#",
+      "portfolio": "#"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Yassin Tarek",
+    "role": "Hardware Leader",
+    "department": "Hardware",
+    "isLeader": true,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Leader",
+    "links": {
+      "github": "#",
+      "linkedin": "#",
+      "portfolio": "#"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Hassan Kamel",
+    "role": "Embedded Systems Engineer",
+    "department": "Hardware",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Member",
+    "links": {
+      "github": "#",
+      "linkedin": "#",
+      "portfolio": "#"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Dina Adel",
+    "role": "Media Leader",
+    "department": "Media",
+    "isLeader": true,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Leader",
+    "links": {
+      "linkedin": "#",
+      "portfolio": "#"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Salma Magdy",
+    "role": "UI/UX Designer",
+    "department": "Media",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Member",
+    "links": {
+      "linkedin": "#",
+      "portfolio": "#"
+    }
+  }
+]

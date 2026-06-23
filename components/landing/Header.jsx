@@ -24,13 +24,11 @@ const Header = ({ isIdeaPage }) => {
       <div className="container mx-auto flex items-center justify-between px-[22px] max-w-[1200px]">
         <a
           href={isIdeaPage ? "/#hero" : "/#hero"}
-          className="text-[1.55rem] font-['Poiret_One'] tracking-wide text-white no-underline whitespace-nowrap transition-transform hover:scale-105"
+          className="text-2xl font-bold tracking-wide text-white no-underline whitespace-nowrap transition-transform hover:scale-105 flex items-center gap-2"
           onClick={handleLinkClick}
         >
-          Smart{" "}
-          <span className="text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.4)]">
-            Vision
-          </span>
+          <img src="/logo-removebg.png" alt="Smart Vision Logo" className="w-9 h-9 object-contain drop-shadow-[0_0_8px_rgba(0,229,255,0.4)]" />
+          <span>Smart<span className="text-[#00e5ff]">Vision</span></span>
         </a>
         <nav
           className={`fixed inset-x-0 top-[70px] md:top-0 w-full bg-[#060a18]/98 md:bg-transparent transition-all duration-300 border-b border-white/10 md:border-none md:static md:w-auto md:opacity-100 md:visible ${mobileMenuOpen ? "translate-y-0 opacity-100 visible" : "-translate-y-full opacity-0 invisible md:translate-y-0"}`}
@@ -60,7 +58,7 @@ const Header = ({ isIdeaPage }) => {
                 className="w-full text-center bg-linear-to-r from-[#00e5ff] to-[#3fd1ff] text-[#08101b] rounded-full py-3 px-6 font-bold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#00e5ff]/20"
                 onClick={handleLinkClick}
               >
-                Get Started
+                Dashboard
               </Link>
               <button
                 className="w-full text-center bg-linear-to-r from-[#6d28d9] to-[#a855f7] text-white rounded-full py-3 px-6 font-bold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#6d28d9]/20"
@@ -80,7 +78,7 @@ const Header = ({ isIdeaPage }) => {
               href="/dashboard"
               className="bg-linear-to-r from-[#00e5ff] to-[#3fd1ff] text-[#08101b] rounded-full py-2.5 px-6 font-bold transition-all hover:translate-y-[-2px] hover:shadow-lg hover:shadow-[#00e5ff]/20 active:translate-y-0"
             >
-              Get Started
+              Dashboard
             </Link>
             <button
               className="bg-linear-to-r from-[#6d28d9] to-[#a855f7] text-white rounded-full py-2.5 px-6 font-bold transition-all hover:translate-y-[-2px] hover:shadow-lg hover:shadow-[#6d28d9]/20 active:translate-y-0"

@@ -2,9 +2,7 @@ import React from "react";
 import Header from "../components/landing/Header";
 import Hero from "../components/landing/Hero";
 import About from "../components/landing/About";
-import Core from "../components/landing/Core";
 import Team from "../components/landing/Team";
-import Portfolio from "../components/landing/Portfolio";
 import Contact from "../components/landing/Contact";
 import Footer from "../components/landing/Footer";
 
@@ -18,9 +16,7 @@ export default function Home() {
       <main>
         <Hero />
         <About />
-        <Core />
         <Team />
-        <Portfolio />
         <Contact />
       </main>
       <Footer />
