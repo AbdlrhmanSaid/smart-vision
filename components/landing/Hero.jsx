@@ -1,56 +1,59 @@
 import React from "react";
-import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
     <section
-      className="min-h-screen flex items-center pt-[120px] pb-10"
+      className="min-h-screen flex items-center justify-center pt-[100px] pb-10 relative overflow-hidden"
       id="hero"
     >
-      <div className=" mx-auto px-[22px] flex flex-col md:flex-row items-center justify-center gap-[30px] ">
-        <div className="max-w-[560px] text-center md:text-left">
-          <span className="inline-flex items-center gap-[10px] bg-[#00e5ff]/14 text-[#00e5ff] border border-[#00e5ff]/25 p-[10px_18px] rounded-full text-[0.84rem] tracking-[0.12em]">
-            INTELLIGENCE REIMAGINED
+      {/* Background ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-[#00e5ff]/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="container mx-auto px-[22px] flex flex-col items-center justify-center relative z-10">
+        <div className="max-w-[800px] text-center flex flex-col items-center">
+          {/* Badge */}
+          <span className="inline-flex items-center gap-[10px] bg-[#00e5ff]/10 text-[#00e5ff] border border-[#00e5ff]/20 px-5 py-2.5 rounded-full text-sm font-semibold tracking-[0.15em] uppercase mb-8">
+            Intelligence Reimagined
           </span>
-          <h2 className="mt-6 flex items-center justify-center md:justify-start gap-4 text-[clamp(3rem,5vw,5rem)] leading-[0.95] tracking-[-0.05em] text-white font-bold">
+
+          {/* Main Title with Logo */}
+          <h1 className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-[clamp(3.5rem,8vw,6rem)] leading-[1] tracking-[-0.04em] text-white font-bold mb-8">
             <img
               src="/logo-removebg.png"
               alt="Smart Vision Logo"
-              className="w-[1em] h-[1em] object-contain drop-shadow-[0_0_20px_rgba(0,229,255,0.3)]"
+              className="w-[1.2em] h-[1.2em] object-contain drop-shadow-[0_0_30px_rgba(0,229,255,0.4)]"
             />
             <span>
-              Smart <span className="text-[#00e5ff]">Vision</span>
+              Smart{" "}
+              <span className="text-[#00e5ff] drop-shadow-[0_0_15px_rgba(0,229,255,0.3)]">
+                Vision
+              </span>
             </span>
-          </h2>
-          <p className="my-[26px] md:my-[38px] text-[#cbd5e5] text-[1.05rem] leading-[1.8] max-w-[520px] mx-auto md:mx-0">
+          </h1>
+
+          {/* Description */}
+          <p className="text-[#b6c4db] text-lg md:text-xl leading-[1.8] max-w-[640px] mx-auto mb-12">
             Pioneering the future of intelligence. We bridge the gap between
-            human perception and computational power.
+            human perception and computational power to build smart, automated
+            warehouse solutions.
           </p>
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-[18px]">
-            <a
-              href="#about"
-              className="inline-flex items-center justify-center bg-linear-to-br from-[#00e5ff] to-[#3fd1ff] text-[#08101b] rounded-full p-[14px_32px] no-underline font-bold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_35px_rgba(0,229,255,0.18)] w-full sm:w-auto"
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto">
+            <Link
+              href="/project"
+              className="inline-flex items-center justify-center bg-linear-to-r from-[#00e5ff] to-[#3fd1ff] text-[#040712] rounded-full px-8 py-4 no-underline font-bold text-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(0,229,255,0.25)] w-full sm:w-auto"
             >
-              Explore Our Vision
-            </a>
+              Explore Portfolio
+            </Link>
             <a
               href="#team"
-              className="inline-flex items-center justify-center border border-white/20 text-white rounded-full p-[14px_32px] no-underline font-bold transition-all duration-300 hover:bg-white/5 w-full sm:w-auto"
+              className="inline-flex items-center justify-center border-2 border-white/10 text-white rounded-full px-8 py-4 no-underline font-bold text-lg transition-all duration-300 hover:bg-white/5 hover:border-white/20 w-full sm:w-auto"
             >
-              Learn More
+              Meet The Team
             </a>
           </div>
-        </div>
-        <div className="w-full max-w-[520px] rounded-[32px] overflow-hidden relative shadow-[0_30px_80px_rgba(0,229,255,0.16)] border border-white/10 bg-linear-to-b from-[#080e24]/94 to-[#020612]/98 group before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_top_left,rgba(0,229,255,0.18),transparent_40%)]">
-          <Image
-            width={500}
-            height={500}
-            className="w-full h-full block rounded-[32px] transition-transform duration-500 group-hover:scale-105"
-            src="/eye.png"
-            alt="Technology Eye"
-            priority
-            quality={75}
-          />
         </div>
       </div>
     </section>

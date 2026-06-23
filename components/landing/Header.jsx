@@ -27,23 +27,26 @@ const Header = ({ isIdeaPage }) => {
           className="text-2xl font-bold tracking-wide text-white no-underline whitespace-nowrap transition-transform hover:scale-105 flex items-center gap-2"
           onClick={handleLinkClick}
         >
-          <img src="/logo-removebg.png" alt="Smart Vision Logo" className="w-9 h-9 object-contain drop-shadow-[0_0_8px_rgba(0,229,255,0.4)]" />
-          <span>Smart<span className="text-[#00e5ff]">Vision</span></span>
+          <img
+            src="/logo-removebg.png"
+            alt="Smart Vision Logo"
+            className="w-9 h-9 object-contain drop-shadow-[0_0_8px_rgba(0,229,255,0.4)]"
+          />
+          <span>
+            Smart<span className="text-[#00e5ff]">Vision</span>
+          </span>
         </a>
         <nav
           className={`fixed inset-x-0 top-[70px] md:top-0 w-full bg-[#060a18]/98 md:bg-transparent transition-all duration-300 border-b border-white/10 md:border-none md:static md:w-auto md:opacity-100 md:visible ${mobileMenuOpen ? "translate-y-0 opacity-100 visible" : "-translate-y-full opacity-0 invisible md:translate-y-0"}`}
         >
           <ul className="flex flex-col md:flex-row gap-6 md:gap-8 p-8 md:p-0 list-none items-center">
-            {[
-              "About",
-              "Team",
-              isIdeaPage ? "Features" : "Portfolio",
-              "Contact",
-            ].map((item) => (
+            {["About", "Team", "Contact"].map((item) => (
               <li key={item}>
                 <a
                   href={
-                    isIdeaPage ? `/project#${item}` : `/#${item.toLowerCase()}`
+                    isIdeaPage && item === "Features"
+                      ? "#features"
+                      : `/#${item.toLowerCase()}`
                   }
                   className="relative text-white/70 font-semibold tracking-wide no-underline hover:text-white transition-colors after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#00e5ff] after:transition-all hover:after:w-full"
                   onClick={handleLinkClick}
