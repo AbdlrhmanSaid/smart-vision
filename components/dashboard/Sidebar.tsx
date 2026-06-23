@@ -67,9 +67,11 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-bold text-foreground leading-tight">
-                Smart Vision
-              </span>
+              <Link href={"/"} className="cursor-pointer">
+                <span className="text-base font-bold text-foreground leading-tight">
+                  Smart Vision
+                </span>
+              </Link>
               <span className="text-[11px] text-muted-foreground font-medium">
                 Dashboard
               </span>

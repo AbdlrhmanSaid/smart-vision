@@ -1,4 +1,3 @@
-import React from "react";
 import {
   IconRobot,
   IconEye,
@@ -19,8 +18,8 @@ import {
   IconDeviceLaptop,
   IconChartPie,
   IconCheck,
-  IconInfoCircle,
 } from "@tabler/icons-react";
+import Link from "next/link";
 
 const Portfolio = () => {
   const projects = [
@@ -133,7 +132,15 @@ const Portfolio = () => {
         <div className="text-center mb-16">
           <h2 className="text-[clamp(2.4rem,3vw,3rem)] text-white font-bold">
             Portfolio & Our Work
-          </h2>
+          </h2>{" "}
+          <div className=" text-white font-bold mt-6">
+            <Link
+              href="/dashboard"
+              className=" bg-linear-to-r from-[#00e5ff] to-[#3fd1ff] text-[#08101b] rounded-full py-2.5 px-6 font-bold transition-all hover:translate-y-[-2px] hover:shadow-lg hover:shadow-[#00e5ff]/20 active:translate-y-0"
+            >
+              Show Dashboard
+            </Link>
+          </div>{" "}
           <span className="block w-[72px] h-1 mx-auto mt-[18px] mb-[30px] rounded-full bg-linear-to-r from-[#00e5ff] to-[#5fd6ff]"></span>
           <p className="max-w-[800px] mx-auto text-[#b6c4db] leading-[1.85] text-lg">
             Explore the key components that make Smart Warehouse Control a

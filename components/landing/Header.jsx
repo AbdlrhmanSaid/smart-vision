@@ -56,38 +56,25 @@ const Header = ({ isIdeaPage }) => {
               </li>
             ))}
             <li className="flex flex-col gap-4 mt-4 md:hidden w-full">
-              <Link
-                href="/dashboard"
-                className="w-full text-center bg-linear-to-r from-[#00e5ff] to-[#3fd1ff] text-[#08101b] rounded-full py-3 px-6 font-bold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#00e5ff]/20"
-                onClick={handleLinkClick}
-              >
-                Dashboard
-              </Link>
               <button
                 className="w-full text-center bg-linear-to-r from-[#6d28d9] to-[#a855f7] text-white rounded-full py-3 px-6 font-bold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#6d28d9]/20"
                 onClick={() => {
                   handleLinkClick();
-                  router.push(isIdeaPage ? "/" : "/project");
+                  router.push(isIdeaPage ? "/" : "/portfolio");
                 }}
               >
-                {isIdeaPage ? "Main Site" : "Project Site"}
+                {isIdeaPage ? "Main" : "Portfolio"}
               </button>
             </li>
           </ul>
         </nav>
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-4">
-            <Link
-              href="/dashboard"
-              className="bg-linear-to-r from-[#00e5ff] to-[#3fd1ff] text-[#08101b] rounded-full py-2.5 px-6 font-bold transition-all hover:translate-y-[-2px] hover:shadow-lg hover:shadow-[#00e5ff]/20 active:translate-y-0"
-            >
-              Dashboard
-            </Link>
             <button
               className="bg-linear-to-r from-[#6d28d9] to-[#a855f7] text-white rounded-full py-2.5 px-6 font-bold transition-all hover:translate-y-[-2px] hover:shadow-lg hover:shadow-[#6d28d9]/20 active:translate-y-0"
-              onClick={() => router.push(isIdeaPage ? "/" : "/project")}
+              onClick={() => router.push(isIdeaPage ? "/" : "/portfolio")}
             >
-              {isIdeaPage ? "Main Site" : "Project Site"}
+              {isIdeaPage ? "Main" : "Portfolio "}
             </button>
           </div>
           <button

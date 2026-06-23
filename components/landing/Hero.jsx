@@ -42,7 +42,7 @@ const Hero = () => {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto">
             <Link
-              href="/project"
+              href="/portfolio"
               className="inline-flex items-center justify-center bg-linear-to-r from-[#00e5ff] to-[#3fd1ff] text-[#040712] rounded-full px-8 py-4 no-underline font-bold text-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(0,229,255,0.25)] w-full sm:w-auto"
             >
               Explore Portfolio

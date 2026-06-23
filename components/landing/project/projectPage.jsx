@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "../Header";
 import Footer from "../Footer";
-import IdeaAbout from "./projectAbout";
-import IdeaFeatures from "./projectFeatures";
-import IdeaHowItWork from "./projectHowItWork";
-import IdeaTeam from "./projectTeam";
-import IdeaDashboard from "./projectDashboard";
-import IdeaGetStart from "./projectGetStart";
-import "./project.css";
+import IdeaAbout from "./portfolioAbout";
+import IdeaFeatures from "./portfolioFeatures";
+import IdeaHowItWork from "./portfolioHowItWork";
+import IdeaTeam from "./portfolioTeam";
+import IdeaDashboard from "./portfolioDashboard";
+import IdeaGetStart from "./portfolioGetStart";
+import "./portfolio.css";
 
 const IdeaPage = () => {
   return (
