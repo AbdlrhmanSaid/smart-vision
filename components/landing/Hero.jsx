@@ -18,7 +18,7 @@ const Hero = () => {
           </span>
 
           {/* Main Title with Logo */}
-          <h1 className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-[clamp(3.5rem,8vw,6rem)] leading-[1] tracking-[-0.04em] text-white font-bold mb-8">
+          <h1 className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-[clamp(3.5rem,8vw,6rem)] leading-none tracking-[-0.04em] text-white font-bold mb-8">
             <img
               src="/logo-removebg.png"
               alt="Smart Vision Logo"

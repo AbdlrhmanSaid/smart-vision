@@ -64,7 +64,7 @@ const Portfolio = () => {
       ],
       techs: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB"],
       icon: <IconWorld size={20} />,
-      placeholderImg: "/dashboard1.jpg",
+      placeholderImg: "/web1.jpg",
     },
     {
       title: "System Dashboard",
@@ -78,7 +78,7 @@ const Portfolio = () => {
         "Activity Tracking",
       ],
       icon: <IconChartLine size={20} />,
-      placeholderImg: "/dashboard3.jpg",
+      placeholderImg: "/web2.jpg",
     },
   ];
 
@@ -160,7 +160,7 @@ const Portfolio = () => {
                   <img
                     src={project.placeholderImg}
                     alt={project.title}
-                    className="w-full h-auto aspect-[16/10] object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-auto aspect-16/10 object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
               </div>
