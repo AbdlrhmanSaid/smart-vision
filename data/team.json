@@ -5,7 +5,7 @@
     "role": "Hardware Leader",
     "department": "Hardware",
     "isLeader": true,
-    "image": "./IMGS/IMG8.JPG",
+    "image": "/imgs/IMG8.jpg",
     "links": {
       "github": "",
       "linkedin": "",
@@ -18,7 +18,7 @@
     "role": "Hardware",
     "department": "Hardware",
     "isLeader": false,
-    "image": "/IMGS/IMG15.JPG",
+    "image": "/imgs/IMG15.jpg",
     "links": {
       "github": "",
       "linkedin": "",
@@ -31,7 +31,7 @@
     "role": "BACK-END",
     "department": "Back-End",
     "isLeader": false,
-    "image": "/IMGS/IMG1.JPEG",
+    "image": "/imgs/IMG1.jpeg",
     "links": {
       "github": "",
       "linkedin": "",
@@ -44,7 +44,7 @@
     "role": "Hardware",
     "department": "Hardware",
     "isLeader": false,
-    "image": "/IMGS/IMG12.JPG",
+    "image": "/imgs/IMG12.jpg",
     "links": {
       "github": "",
       "linkedin": "",
@@ -70,7 +70,7 @@
     "role": "Front-End Developer",
     "department": "Front-End",
     "isLeader": true,
-    "image": "/IMGS/IMG2.JPEG",
+    "image": "/imgs/IMG2.jpeg",
     "objectPosition": "bottom",
     "links": {
       "github": "https://github.com/AbdlrhmanSaid",
@@ -84,7 +84,7 @@
     "role": "Front-End Developer",
     "department": "Front-End",
     "isLeader": false,
-    "image": "/IMGS/IMG3.JPEG",
+    "image": "/imgs/IMG3.jpeg",
     "links": {
       "github": "",
       "linkedin": "",
@@ -110,7 +110,7 @@
     "role": "Front-End Developer",
     "department": "Front-End",
     "isLeader": false,
-    "image": "/IMGS/IMG10.JPG",
+    "image": "/imgs/IMG10.jpg",
     "links": {
       "linkedin": "",
       "portfolio": ""
@@ -122,7 +122,7 @@
     "role": "Front-End Developer",
     "department": "Front-End",
     "isLeader": false,
-    "image": "/IMGS/IMG17.JPG",
+    "image": "/imgs/IMG17.jpg",
     "links": {
       "linkedin": "",
       "portfolio": ""
@@ -159,7 +159,7 @@
     "role": "SOFTWARE",
     "department": "AI & Model Training",
     "isLeader": true,
-    "image": "/IMGS/IMG18.JPG",
+    "image": "/imgs/IMG18.jpg",
     "links": {
       "linkedin": "",
       "portfolio": ""
@@ -207,7 +207,7 @@
     "role": "BACK-END",
     "department": "Back-End",
     "isLeader": true,
-    "image": "/IMGS/IMG2.JPEG",
+    "image": "/imgs/IMG2.jpeg",
     "objectPosition": "bottom",
     "links": {
       "linkedin": "",
@@ -256,7 +256,7 @@
     "role": "SOFTWARE",
     "department": "AI & Model Training",
     "isLeader": false,
-    "image": "/IMGS/IMG9.JPG",
+    "image": "/imgs/IMG9.jpg",
     "links": {
       "linkedin": "",
       "portfolio": ""
@@ -268,7 +268,7 @@
     "role": "SOFTWARE",
     "department": "AI & Model Training",
     "isLeader": false,
-    "image": "/IMGS/IMG11.JPG",
+    "image": "/imgs/IMG11.jpg",
     "links": {
       "linkedin": "",
       "portfolio": ""
@@ -280,7 +280,7 @@
     "role": "Media",
     "department": "Media",
     "isLeader": false,
-    "image": "/IMGS/IMG16.JPG",
+    "image": "/imgs/IMG16.jpg",
     "links": {
       "linkedin": "",
       "portfolio": ""
@@ -292,7 +292,7 @@
     "role": "Media",
     "department": "Media",
     "isLeader": false,
-    "image": "/IMGS/IMG19.JPEG",
+    "image": "/imgs/IMG19.jpeg",
     "links": {
       "linkedin": "",
       "portfolio": ""
@@ -304,7 +304,7 @@
     "role": "Media",
     "department": "Media",
     "isLeader": false,
-    "image": "/IMGS/IMG20.JPEG",
+    "image": "/imgs/IMG20.jpeg",
     "links": {
       "linkedin": "",
       "portfolio": ""
