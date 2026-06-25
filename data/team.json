@@ -1,130 +1,337 @@
 [
   {
     "id": 1,
-    "name": "Ahmed Ali",
-    "role": "Front-End Leader",
-    "department": "Front-End",
+    "name": "Abdeltawab Abdelhamid",
+    "role": "Hardware Leader",
+    "department": "Hardware",
     "isLeader": true,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Leader",
+    "image": "./IMGS/IMG8.JPG",
     "links": {
-      "github": "#",
-      "linkedin": "#",
-      "portfolio": "#"
+      "github": "",
+      "linkedin": "",
+      "portfolio": ""
     }
   },
   {
     "id": 2,
-    "name": "Sara Mohamed",
-    "role": "Front-End Developer",
-    "department": "Front-End",
+    "name": "Abdelrahman Tarek",
+    "role": "Hardware",
+    "department": "Hardware",
     "isLeader": false,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Member",
+    "image": "/IMGS/IMG15.JPG",
     "links": {
-      "github": "#",
-      "linkedin": "#",
-      "portfolio": "#"
+      "github": "",
+      "linkedin": "",
+      "portfolio": ""
     }
   },
   {
     "id": 3,
-    "name": "Omar Hassan",
-    "role": "Back-End Leader",
+    "name": "Zeyad Tarek",
+    "role": "BACK-END",
     "department": "Back-End",
-    "isLeader": true,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Leader",
+    "isLeader": false,
+    "image": "/IMGS/IMG1.JPEG",
     "links": {
-      "github": "#",
-      "linkedin": "#",
-      "portfolio": "#"
+      "github": "",
+      "linkedin": "",
+      "portfolio": ""
     }
   },
   {
     "id": 4,
-    "name": "Nour Sayed",
-    "role": "Back-End Developer",
-    "department": "Back-End",
+    "name": "Abdelrahman Ahmed",
+    "role": "Hardware",
+    "department": "Hardware",
     "isLeader": false,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Member",
+    "image": "/IMGS/IMG12.JPG",
     "links": {
-      "github": "#",
-      "linkedin": "#",
-      "portfolio": "#"
+      "github": "",
+      "linkedin": "",
+      "portfolio": ""
     }
   },
   {
     "id": 5,
-    "name": "Khaled Youssef",
-    "role": "AI Team Leader",
-    "department": "AI & Model Training",
-    "isLeader": true,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Leader",
+    "name": "Sherif Mahmoud",
+    "role": "Hardware",
+    "department": "Hardware",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Sherif",
     "links": {
-      "github": "#",
-      "linkedin": "#",
-      "portfolio": "#"
+      "github": "",
+      "linkedin": "",
+      "portfolio": ""
     }
   },
   {
     "id": 6,
-    "name": "Mona Ibrahim",
-    "role": "AI Engineer",
-    "department": "AI & Model Training",
-    "isLeader": false,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Member",
+    "name": "Abdelrahman Saeed",
+    "role": "Front-End Developer",
+    "department": "Front-End",
+    "isLeader": true,
+    "image": "/IMGS/IMG2.JPEG",
+    "objectPosition": "bottom",
     "links": {
-      "github": "#",
-      "linkedin": "#",
-      "portfolio": "#"
+      "github": "https://github.com/AbdlrhmanSaid",
+      "linkedin": "https://www.linkedin.com/in/abdelrhman-saeid-95564a25a/",
+      "portfolio": "https://asportfolio-mu.vercel.app/"
     }
   },
   {
     "id": 7,
-    "name": "Yassin Tarek",
-    "role": "Hardware Leader",
-    "department": "Hardware",
-    "isLeader": true,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Leader",
+    "name": "Mohamed Hussein",
+    "role": "Front-End Developer",
+    "department": "Front-End",
+    "isLeader": false,
+    "image": "/IMGS/IMG3.JPEG",
     "links": {
-      "github": "#",
-      "linkedin": "#",
-      "portfolio": "#"
+      "github": "",
+      "linkedin": "",
+      "portfolio": ""
     }
   },
   {
     "id": 8,
-    "name": "Hassan Kamel",
-    "role": "Embedded Systems Engineer",
-    "department": "Hardware",
+    "name": "Saif Ghazy",
+    "role": "Front-End Developer",
+    "department": "Front-End",
     "isLeader": false,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Member",
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Saif",
     "links": {
-      "github": "#",
-      "linkedin": "#",
-      "portfolio": "#"
+      "github": "",
+      "linkedin": "",
+      "portfolio": ""
     }
   },
   {
     "id": 9,
-    "name": "Dina Adel",
-    "role": "Media Leader",
-    "department": "Media",
-    "isLeader": true,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Leader",
+    "name": "Mohamed Yaser Abdelstar",
+    "role": "Front-End Developer",
+    "department": "Front-End",
+    "isLeader": false,
+    "image": "/IMGS/IMG10.JPG",
     "links": {
-      "linkedin": "#",
-      "portfolio": "#"
+      "linkedin": "",
+      "portfolio": ""
     }
   },
   {
     "id": 10,
-    "name": "Salma Magdy",
-    "role": "UI/UX Designer",
+    "name": "Abdalla Mohamed",
+    "role": "Front-End Developer",
+    "department": "Front-End",
+    "isLeader": false,
+    "image": "/IMGS/IMG17.JPG",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+
+  {
+    "id": 11,
+    "name": "Ziad Magdy Mohamed",
+    "role": "Front-End Developer",
+    "department": "Front-End",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Ziad",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 12,
+    "name": "Abdelrahman Shehata",
+    "role": "Front-End Developer",
+    "department": "Front-End",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Abdelrahman",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 13,
+    "name": "Mohamed Magdy",
+    "role": "SOFTWARE",
+    "department": "AI & Model Training",
+    "isLeader": true,
+    "image": "/IMGS/IMG18.JPG",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 14,
+    "name": "Ahmed Gooda",
+    "role": "SOFTWARE",
+    "department": "AI & Model Training",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Ahmed",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 15,
+    "name": "Shehab Ramadan",
+    "role": "SOFTWARE",
+    "department": "AI & Model Training",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Shehab",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 16,
+    "name": "Mohamed Yasser Shehata",
+    "role": "Media",
+    "department": "Media",
+    "isLeader": true,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Mohamed",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 17,
+    "name": "Abdelrahman Saeed",
+    "role": "BACK-END",
+    "department": "Back-End",
+    "isLeader": true,
+    "image": "/IMGS/IMG2.JPEG",
+    "objectPosition": "bottom",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 18,
+    "name": "Mohamed Ismail",
+    "role": "BACK-END",
+    "department": "Back-End",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Mohamed",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 19,
+    "name": "Saif Baset",
+    "role": "BACK-END",
+    "department": "Back-End",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Mohamed",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 20,
+    "name": "Abdelrahman Yasser",
+    "role": "BACK-END",
+    "department": "Back-End",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Abdelrahman",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 21,
+    "name": "Yousef Ahmed Sobhy",
+    "role": "SOFTWARE",
+    "department": "AI & Model Training",
+    "isLeader": false,
+    "image": "/IMGS/IMG9.JPG",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 22,
+    "name": "Taha Mohamed ",
+    "role": "SOFTWARE",
+    "department": "AI & Model Training",
+    "isLeader": false,
+    "image": "/IMGS/IMG11.JPG",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 23,
+    "name": "Yousef Taher",
+    "role": "Media",
     "department": "Media",
     "isLeader": false,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Member",
+    "image": "/IMGS/IMG16.JPG",
     "links": {
-      "linkedin": "#",
-      "portfolio": "#"
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 24,
+    "name": "Yousef Hassan",
+    "role": "Media",
+    "department": "Media",
+    "isLeader": false,
+    "image": "/IMGS/IMG19.JPEG",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 25,
+    "name": "Yousef Shapan",
+    "role": "Media",
+    "department": "Media",
+    "isLeader": false,
+    "image": "/IMGS/IMG20.JPEG",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 26,
+    "name": "Ahmed Thanet",
+    "role": "Hardware",
+    "department": "Hardware",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Ahmed",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
+    }
+  },
+  {
+    "id": 27,
+    "name": "Youssef Elsayed Yahya",
+    "role": "Hardware",
+    "department": "Hardware",
+    "isLeader": false,
+    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Youssef",
+    "links": {
+      "linkedin": "",
+      "portfolio": ""
     }
   }
 ]

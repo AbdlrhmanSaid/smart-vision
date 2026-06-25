@@ -133,6 +133,7 @@ const Team = () => {
                                   src={member.image}
                                   alt={member.name}
                                   className="w-full h-full object-cover"
+                                  style={{ objectPosition: member.objectPosition || "top" }}
                                 />
                                 {member.isLeader && (
                                   <div className="absolute top-3 right-3 bg-linear-to-r from-[#00e5ff] to-[#0077ff] text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
@@ -180,10 +181,7 @@ const Team = () => {
                                         rel="noreferrer"
                                         className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#00e5ff] hover:text-[#040712] transition-colors"
                                       >
-                                        <IconLink 
-                                          size={16}
-                                          stroke={2}
-                                        />
+                                        <IconLink size={16} stroke={2} />
                                       </a>
                                     )}
                                   </div>
