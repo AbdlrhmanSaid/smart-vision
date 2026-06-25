@@ -195,7 +195,7 @@
     "role": "Media",
     "department": "Media",
     "isLeader": true,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Mohamed",
+    "image": "/imgs/img14.jpg",
     "links": {
       "linkedin": "",
       "portfolio": ""
@@ -232,7 +232,7 @@
     "role": "BACK-END",
     "department": "Back-End",
     "isLeader": false,
-    "image": "https://placehold.co/400x400/0c1226/00e5ff?text=Mohamed",
+    "image": "/imgs/img13.png",
     "links": {
       "linkedin": "",
       "portfolio": ""
