@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 const Header = ({ isIdeaPage }) => {
   const [scrolled, setScrolled] = useState(true);
@@ -95,7 +94,7 @@ const Header = ({ isIdeaPage }) => {
         </div>
       </div>
     </header>
-  );  
+  );
 };
 
 export default Header;
