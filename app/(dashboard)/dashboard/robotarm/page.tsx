@@ -48,8 +48,26 @@ interface PointConfig {
 // Default sequence builder
 // ─────────────────────────────────────────────
 const buildDefault = (id: string): PointSequence => ({
-  retrieve: [`Pick_${id}`, `Safe_${id}`, `Place_Fixed`],
-  store: [`Pick_Fixed`, `Safe_Fixed`, `Safe_${id}`, `Place_${id}`],
+  // Retrieve: Point → Fixed
+  // Safe_id → Pick_id → Safe_id → Safe_Fixed → Place_Fixed → Safe_Fixed
+  retrieve: [
+    `Safe_${id}`,
+    `Pick_${id}`,
+    `Safe_${id}`,
+    `Safe_Fixed`,
+    `Place_Fixed`,
+    `Safe_Fixed`,
+  ],
+  // Store: Fixed → Point
+  // Safe_Fixed → Pick_Fixed → Safe_Fixed → Safe_id → Place_id → Safe_id
+  store: [
+    `Safe_Fixed`,
+    `Pick_Fixed`,
+    `Safe_Fixed`,
+    `Safe_${id}`,
+    `Place_${id}`,
+    `Safe_${id}`,
+  ],
 });
 
 // ─────────────────────────────────────────────
