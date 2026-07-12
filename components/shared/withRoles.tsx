@@ -24,7 +24,12 @@ export function withRoles<P extends object>(...requiredRoles: string[]) {
       const user = useAuthStore((state) => state.user);
       const router = useRouter();
 
-      const userRoles = user?.roles?.map((r) => r.name) ?? [];
+      const userRoles =
+        user?.roles?.map((r: any) => {
+          if (typeof r === "string") return r;
+          if (r && typeof r === "object" && "name" in r) return r.name;
+          return "";
+        }) ?? [];
       const isSuperAdmin = userRoles.includes("super_admin");
 
       const hasAccess =

@@ -1,10 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { LogOut, Bell, Search, LayoutDashboard, Menu } from "lucide-react";
+import { LogOut, Bell, LayoutDashboard, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { AuthService } from "@/services/auth.service";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const pageTitles: Record<string, string> = {
   "/dashboard": "لوحة التحكم",
@@ -22,6 +23,13 @@ export function Header({ onMenuToggle }: HeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
   const pageTitle = pageTitles[pathname] ?? "لوحة التحكم";
+
+  const user = useAuthStore((state) => state.user);
+  const roles =
+    user?.roles?.map((r: any) => (typeof r === "string" ? r : r.name)) ?? [];
+  const userInitial = user?.username
+    ? user.username.charAt(0).toUpperCase()
+    : "";
 
   const handleLogout = async () => {
     await AuthService.logout();
@@ -49,16 +57,32 @@ export function Header({ onMenuToggle }: HeaderProps) {
           </span>
         </div>
 
-        {/* Search bar */}
-        <div className="relative hidden sm:flex items-center w-full max-w-xs">
-          <Search className="absolute right-3 size-4 text-muted-foreground pointer-events-none" />
-          <input
-            type="text"
-            placeholder="ابحث..."
-            className="w-full h-9 pr-10 pl-4 text-sm bg-muted/40 hover:bg-muted/70 border border-border rounded-xl outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary/40 transition-all placeholder:text-muted-foreground"
+        {/* User Info */}
+        {user && (
+          <div
+            className="hidden sm:flex items-center gap-2.5 bg-muted/20  rounded-2xl px-3 py-1.5 "
             dir="rtl"
-          />
-        </div>
+          >
+            <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-primary/10 to-primary/20 border border-primary/20 text-primary font-bold text-sm shrink-0">
+              {userInitial}
+            </div>
+            <div className="flex flex-col text-right">
+              <span className="text-xs font-semibold text-foreground leading-none">
+                {user.username}
+              </span>
+              <div className="flex flex-wrap gap-1 mt-1">
+                {roles.map((roleName) => (
+                  <span
+                    key={roleName}
+                    className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-primary/5 text-primary border border-primary/10"
+                  >
+                    {roleName}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Spacer */}
         <div className="flex-1" />

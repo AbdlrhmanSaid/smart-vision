@@ -6,6 +6,7 @@ import {
   useSendRobotArmAction,
 } from "@/hooks/useRobotArm";
 import { useGetAllSmartShelves } from "@/hooks/useSmartShelf";
+import { withRoles } from "@/components/shared/withRoles";
 import { useGetAllArmFunctions } from "@/hooks/arm-functions";
 import {
   Bot,
@@ -265,7 +266,7 @@ function SequenceModal({
 // ─────────────────────────────────────────────
 // Main Page
 // ─────────────────────────────────────────────
-export default function RobotArmPage() {
+function RobotArmPage() {
   const { data: statusData, isLoading: isStatusLoading } =
     useGetRobotArmStatus();
   const { mutate: sendAction, isPending: isSending } = useSendRobotArmAction();
@@ -662,3 +663,4 @@ export default function RobotArmPage() {
     </div>
   );
 }
+export default withRoles("operation")(RobotArmPage);

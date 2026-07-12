@@ -30,7 +30,7 @@ function getRoleColor(index: number) {
 }
 
 function RolesPage() {
-  const { data: roles, isLoading } = useGetAllRoles();
+  const { data: roles, isLoading, error, isError } = useGetAllRoles();
   const createMutation = useCreateRole();
   const updateMutation = useUpdateRole();
   const deleteMutation = useDeleteRole();
@@ -90,6 +90,22 @@ function RolesPage() {
 
   if (isLoading) {
     return <LoadingState icon={Shield} />;
+  }
+
+  if (isError) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center px-4" dir="rtl">
+        <div className="w-16 h-16 rounded-2xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center text-red-500 shadow-lg shadow-red-500/10">
+          <Shield className="size-8" />
+        </div>
+        <div className="space-y-1">
+          <h2 className="text-xl font-bold text-foreground">فشل تحميل الصلاحيات</h2>
+          <p className="text-sm text-muted-foreground max-w-sm">
+            {error instanceof Error ? error.message : "حدث خطأ غير متوقع أثناء الاتصال بالخادم"}
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (

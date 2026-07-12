@@ -4,13 +4,47 @@ import {
   getActivityIcon,
   getStatusColor,
 } from "@/app/(dashboard)/dashboard/activity/page";
-import { Bell, ArrowLeft } from "lucide-react";
+import { Bell, ArrowLeft, ShieldAlert } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
 import { Activity } from "@/services/activity.service";
 import Link from "next/link";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export function RecentActivity({ activities }: { activities?: Activity[] }) {
+  const user = useAuthStore((state) => state.user);
+  const roles = user?.roles?.map((r: any) => typeof r === "string" ? r : r.name) ?? [];
+  const hasActivityRole = roles.includes("super_admin") || roles.includes("activity");
+
+  if (!hasActivityRole) {
+    return (
+      <div className="lg:col-span-2 bg-white dark:bg-card border border-border rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-[350px]" dir="rtl">
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border shrink-0">
+          <div className="flex items-center gap-2">
+            <Clock className="size-4 text-primary" />
+            <h2 className="font-semibold text-foreground text-sm">
+              آخر النشاطات
+            </h2>
+          </div>
+          <span className="text-xs text-muted-foreground">اليوم</span>
+        </div>
+
+        {/* Access Denied Content */}
+        <div className="flex-1 flex flex-col items-center justify-center py-16 text-center px-4">
+          <div className="w-14 h-14 rounded-2xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center mb-3 text-red-500 shadow-lg shadow-red-500/5">
+            <ShieldAlert className="size-7" />
+          </div>
+          <h3 className="text-sm font-semibold text-foreground mb-1">
+            غير مصرح بالدخول
+          </h3>
+          <p className="text-xs text-muted-foreground max-w-[240px] mx-auto leading-relaxed">
+            ليس لديك الصلاحيات الكافية لعرض سجل النشاطات في النظام.
+          </p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="lg:col-span-2 bg-white dark:bg-card border border-border rounded-2xl shadow-sm overflow-hidden flex flex-col">
       {/* Header */}

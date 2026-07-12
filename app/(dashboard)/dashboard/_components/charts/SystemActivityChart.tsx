@@ -11,7 +11,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { format, subDays, parseISO } from "date-fns";
-import { Activity } from "lucide-react";
+import { Activity, ShieldAlert } from "lucide-react";
+import { useAuthStore } from "@/store/useAuthStore";
 
 interface SystemActivityChartProps {
   activities: any[];
@@ -19,10 +20,41 @@ interface SystemActivityChartProps {
 
 export function SystemActivityChart({ activities }: SystemActivityChartProps) {
   const [mounted, setMounted] = useState(false);
+  const user = useAuthStore((state) => state.user);
+  const roles = user?.roles?.map((r: any) => typeof r === "string" ? r : r.name) ?? [];
+  const hasActivityRole = roles.includes("super_admin") || roles.includes("activity");
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  if (!hasActivityRole) {
+    return (
+      <div className="bg-white dark:bg-card border border-border rounded-3xl p-6 shadow-sm min-h-[350px] flex flex-col" dir="rtl">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-2.5 bg-primary/10 rounded-xl">
+            <Activity className="size-6 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-foreground">نشاط النظام</h2>
+            <p className="text-xs text-muted-foreground mt-1">مقارنة النشاط البشري والذكاء الاصطناعي بآخر 7 أيام</p>
+          </div>
+        </div>
+        
+        <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
+          <div className="w-14 h-14 rounded-2xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center mb-3 text-red-500 shadow-lg shadow-red-500/5">
+            <ShieldAlert className="size-7" />
+          </div>
+          <h3 className="text-sm font-semibold text-foreground mb-1">
+            غير مصرح بالدخول
+          </h3>
+          <p className="text-xs text-muted-foreground max-w-[240px] mx-auto leading-relaxed">
+            ليس لديك الصلاحيات الكافية لعرض رسم نشاط النظام البياني.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const data = useMemo(() => {
     if (!activities) return [];

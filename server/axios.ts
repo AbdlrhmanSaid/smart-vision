@@ -12,7 +12,7 @@ function getClientCookie(name: string): string | undefined {
 const axiosInstance = axios.create({
   // Use the local Next.js proxy (/api/*) to avoid CORS issues.
   // next.config.ts rewrites /api/* → NEXT_PUBLIC_API/*
-  baseURL: "https://backend.smart-vision.site/api",
+  baseURL: process.env.NEXT_PUBLIC_API || "https://backend.smart-vision.site/api",
   withCredentials: true,
 });
 
